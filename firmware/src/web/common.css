@@ -160,17 +160,36 @@ input[type="time"], select, input[type="text"] {
     display: none; 
 }
 
-.message { 
-    padding: 10px; 
-    margin-top: 10px; 
-    border-radius: 4px; 
-    display: none; 
-    text-align: center; 
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    padding: 14px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    font-size: 0.95em;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    max-width: 280px;
 }
 
-.success { 
-    background-color: #d4edda; 
-    color: #155724; 
+.toast.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.toast.error {
+    background-color: #dc3545;
+    color: white;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .state-row {

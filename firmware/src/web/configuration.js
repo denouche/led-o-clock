@@ -109,14 +109,26 @@ function removeColorRow(index) {
     markColorsDirty();
 }
 
-function showMessage(elementId, text) {
-    const msgElement = document.getElementById(elementId);
-    msgElement.textContent = text;
-    msgElement.className = 'message success';
-    msgElement.style.display = 'block';
-    
-    setTimeout(() => {
-        msgElement.style.display = 'none';
+function showMessage(text, type = 'success') {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        document.body.appendChild(toast);
+    }
+
+    // Reset any pending hide timer
+    clearTimeout(toast._hideTimer);
+
+    toast.textContent = text;
+    toast.className = `toast ${type}`;
+
+    // Trigger reflow to restart the CSS transition if called twice quickly
+    void toast.offsetWidth;
+    toast.classList.add('show');
+
+    toast._hideTimer = setTimeout(() => {
+        toast.classList.remove('show');
     }, 3000);
 }
 
@@ -315,8 +327,8 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
         btn.textContent = "SAVE CHANGES";
         btn.style.display = 'none'; 
         
-        showMessage('schedules-message', 'Configuration saved successfully!');
-        
+        showMessage('Configuration saved successfully!');
+
         document.getElementById('config-content').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
         
@@ -326,7 +338,7 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
         console.error("Save failed", err);
         btn.disabled = false;
         btn.textContent = "SAVE CHANGES";
-        showMessage('schedules-message', 'Failed to save configuration. Please try again.');
+        showMessage('Failed to save configuration. Please try again.', 'error');
     }
 };
 
