@@ -13,6 +13,7 @@ This monorepo contains everything you need to build your own: the custom PCB, th
 * **Custom Offline Schedules:** Define daily time slots with personalized hex colors and day-of-week customization. Once the initial time is synced via NTP at boot, the execution is 100% local and will continue to work perfectly even during internet outages.
 * **Web Dashboard:** A standalone, mobile-friendly interface to configure the device on your local network.
 * **REST API:** Fully controllable via HTTP endpoints for seamless integration with Home Assistant and other automation platforms.
+* **OTA Firmware Updates:** Update the firmware over the air without physical access to the device.
 * **Easy Setup:** Built-in captive portal for initial WiFi configuration.
 
 ## Getting Started
