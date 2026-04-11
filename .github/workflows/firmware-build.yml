@@ -1,0 +1,52 @@
+name: Firmware Build
+
+on:
+  push:
+    paths:
+      - 'firmware/**'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'firmware/**'
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build:
+    name: Build firmware
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Cache pip
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v5
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-platformio
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+
+      - name: Install PlatformIO
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -U platformio
+
+      - name: Run PlatformIO Build
+        run: pio run -e esp32-s3-devkitc1-n16r8

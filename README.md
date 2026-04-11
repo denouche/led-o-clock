@@ -1,5 +1,7 @@
 # Led'o'clock
 
+[THIS PROJECT IS IN WORK IN PROGRESS STATE]
+
 Led'o'clock is a smart, connected, visual nightlight and time indicator designed to help kids understand when it's time to sleep, play, or wake up. 
 
 This monorepo contains everything you need to build your own: the custom PCB, the 3D printable enclosure, and the ESP8266 firmware.
