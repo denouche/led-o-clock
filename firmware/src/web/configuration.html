@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Led'o'clock configuration</title>
+    <link rel="stylesheet" href="/common.css">
+</head>
+<body>
+    <p><a href="/" style="text-decoration: none; color: #4CAF50;">&larr; Back to Home</a></p>
+    <h1>Configuration</h1>
+    
+    <div id="loader">
+        <div class="spinner"></div>
+        <div id="loader-text">Loading configuration...</div>
+    </div>
+
+    <div id="config-content">
+        <div class="status-box" id="status-container" style="display: none;">
+            <h3>Live Status</h3>
+            <p id="live-status-text" style="margin: 0; color: #333; line-height: 1.5;">Loading status...</p>
+        </div>
+
+        <div class="config-section">
+            <h2>Current State</h2>
+            
+            <div class="state-row">
+                <div class="state-label">Color:</div>
+                <select id="current-color" class="color-dropdown" onchange="markColorModified()" style="flex-grow: 1;">
+                </select>
+            </div>
+            
+            <div class="state-row" style="margin-bottom: 0;">
+                <div class="state-label">Brightness:</div>
+                <input type="range" id="brightness" min="0" max="100" style="flex-grow: 1;" oninput="markBrightnessDirty()"> 
+                <span style="width: 45px; text-align: right;"><span id="brightness-value">50</span>%</span>
+            </div>
+        </div>
+
+        <div class="config-section">
+            <h2>Custom Colors</h2>
+            <div id="colors-list"></div>
+            <button type="button" class="add-btn" onclick="addColorRow()">+ Add Color</button>
+        </div>
+
+        <div class="config-section">
+            <h2>Timezone</h2>
+            <select id="timezone" style="width:100%;" onchange="markTimezoneDirty()">
+                <optgroup label="Europe">
+                    <option value="GMT0BST,M3.5.0/1,M10.5.0">London (GMT/BST)</option>
+                    <option value="CET-1CEST,M3.5.0,M10.5.0/3" selected>Paris, Berlin, Rome (CET/CEST)</option>
+                    <option value="EET-2EEST,M3.5.0/3,M10.5.0/4">Athens, Kyiv, Bucharest (EET/EEST)</option>
+                    <option value="<+03>-3">Istanbul (UTC+3)</option>
+                </optgroup>
+
+                <optgroup label="Americas">
+                    <option value="EST5EDT,M3.2.0,M11.1.0">New York, Toronto (EST/EDT)</option>
+                    <option value="CST6CDT,M3.2.0,M11.1.0">Chicago, Mexico City (CST/CDT)</option>
+                    <option value="MST7MDT,M3.2.0,M11.1.0">Denver (MST/MDT)</option>
+                    <option value="PST8PDT,M3.2.0,M11.1.0">Los Angeles, Vancouver (PST/PDT)</option>
+                    <option value="<-03>3">Sao Paulo, Buenos Aires (UTC-3)</option>
+                </optgroup>
+
+                <optgroup label="Asia & Middle East">
+                    <option value="AST-3">Riyadh (AST)</option>
+                    <option value="<-04>-4">Dubai (UTC+4)</option>
+                    <option value="IST-5:30">New Delhi (IST)</option>
+                    <option value="CST-8">Beijing, Shanghai, Singapore (CST)</option>
+                    <option value="JST-9">Tokyo (JST)</option>
+                    <option value="KST-9">Seoul (KST)</option>
+                </optgroup>
+
+                <optgroup label="Oceania">
+                    <option value="AEST-10AEDT,M10.1.0,M4.1.0/3">Sydney, Melbourne (AEST/AEDT)</option>
+                    <option value="NZST-12NZDT,M9.5.0,M4.1.0/3">Auckland (NZST/NZDT)</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <form id="scheduleForm">
+            <div class="config-section">
+                <h2>Schedules</h2>
+                <div id="schedules-message" class="message"></div>
+                <div id="schedules"></div>
+                <button type="button" class="add-btn" id="addScheduleBtn" onclick="addScheduleRow('', '', false)">+ Add Schedule</button>
+                <button type="submit" id="mainSaveButton" class="floating-save">SAVE CHANGES</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/common.js"></script>
+    <script src="/configuration.js"></script>
+</body>
+</html>

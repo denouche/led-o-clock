@@ -1,0 +1,212 @@
+body { 
+    font-family: Arial, sans-serif; 
+    max-width: 600px; 
+    margin: 30px auto; 
+    padding: 20px; 
+    background-color: #f0f0f0; 
+    padding-bottom: 100px; 
+}
+
+h1 { 
+    text-align: center; 
+    color: #333; 
+}
+
+.card, .config-section { 
+    background-color: white; 
+    padding: 15px; 
+    margin: 15px 0; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+
+h2, .config-section h2 { 
+    color: #555; 
+    font-size: 18px; 
+    margin-top: 0; 
+    border-bottom: 2px solid #4CAF50; 
+    padding-bottom: 5px; 
+}
+
+/* Home Assistant Code Block */
+pre {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    overflow-x: auto;
+    border: 1px solid #181a1f;
+    line-height: 1.5;
+}
+
+/* Collapsable styling */
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #4CAF50;
+    outline: none;
+    user-select: none;
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+}
+
+ul { 
+    list-style-type: none; 
+    padding: 0; 
+}
+
+li { 
+    padding: 10px 0; 
+    border-bottom: 1px solid #eee; 
+    color: #666; 
+}
+
+li:last-child { 
+    border-bottom: none; 
+}
+
+code { 
+    background-color: #eee; 
+    padding: 2px 5px; 
+    border-radius: 3px; 
+    font-family: monospace; 
+    color: #333; 
+    word-break: break-all; 
+}
+
+.status-box { 
+    background-color: #e8f5e9; 
+    border-left: 5px solid #4CAF50; 
+    padding: 15px; 
+    margin-bottom: 20px; 
+    border-radius: 5px; 
+}
+
+.schedule { 
+    background-color: white; 
+    padding: 12px; 
+    margin: 10px 0; 
+    border-radius: 5px; 
+    border: 1px solid #eee; 
+}
+
+.schedule-label {
+    color: #666; 
+    font-size: 0.8em; 
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.schedule-controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    flex-wrap: wrap; 
+}
+
+.schedule-days {
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #444;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+input[type="time"], select, input[type="text"] { 
+    padding: 8px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+}
+
+.clear-btn { 
+    background-color: #dc3545; 
+    color: white; 
+    padding: 8px 12px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.8em; 
+}
+
+.add-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.floating-save { 
+    position: fixed; 
+    bottom: 25px; 
+    right: 25px; 
+    z-index: 1000; 
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 15px 30px; 
+    border: none; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    font-size: 1.1em;
+    display: none; 
+}
+
+.message { 
+    padding: 10px; 
+    margin-top: 10px; 
+    border-radius: 4px; 
+    display: none; 
+    text-align: center; 
+}
+
+.success { 
+    background-color: #d4edda; 
+    color: #155724; 
+}
+
+.state-row {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 15px;
+}
+
+.state-label {
+    width: 100px;
+    font-weight: bold;
+    color: #555;
+}
+
+#loader {
+    text-align: center;
+    padding: 40px;
+    color: #555;
+    font-size: 1.2em;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#config-content {
+    display: none; 
+}

@@ -1,0 +1,24 @@
+# --- PlatformIO ---
+firmware/.pio/
+firmware/.vscode/
+*.ipch
+*.db
+
+# --- KiCad / FreeCAD ---
+enclosure/*.FCStd1
+enclosure/*.bak
+pcb/*.bak
+pcb/*.kicad_pcb-bak
+pcb/*.sch-bak
+
+# --- System ---
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# --- Environnement ---
+.env
+
+
+.idea/

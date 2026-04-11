@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Led'o'clock</title>
+    <link rel="stylesheet" href="/common.css">
+</head>
+<body>
+    <h1>Led'o'clock</h1>
+    
+    <div class="status-box" id="status-container" style="display: none;">
+        <h3>Live Status</h3>
+        <p id="live-status-text" style="margin: 0; color: #333; line-height: 1.5;">Loading status...</p>
+    </div>
+
+    <div class="card">
+        <p>Go to <a href="/configure">Configuration Dashboard</a></p>
+        <p>WiFi: <a href="/reset_wifi" onclick="return confirmResetWifi(event)">Reset WiFi Configuration</a></p>
+        <p>Reset: <a href="/reset" onclick="return confirmReset(event)">Reset all Configuration</a></p>
+    </div>
+
+    <details class="card">
+        <summary>Home Assistant Configuration</summary>
+        <div style="margin-top: 15px;">
+            <p>Add the following to your <code>configuration.yaml</code>:</p>
+            <pre>
+rest:
+  - resource: "http://%HOSTNAME%.local/status"
+    scan_interval: 60
+    sensor:
+      - name: "Led'o'clock Color"
+        unique_id: "ledoclock_sensor_color"
+        value_template: "{{ value_json.current_color }}"
+      - name: "Led'o'clock Brightness"
+        unique_id: "ledoclock_sensor_brightness"
+        value_template: "{{ value_json.brightness_percent }}"
+        unit_of_measurement: "%"
+      - name: "Led'o'clock Active LEDs"
+        unique_id: "ledoclock_sensor_active_leds"
+        value_template: "{{ value_json.current_leds_on }}"
+        unit_of_measurement: "LEDs"
+
+rest_command:
+  ledoclock_set_color:
+    url: "http://%HOSTNAME%.local/set_color?value={{ color }}"
+    method: GET
+
+  ledoclock_set_brightness:
+    url: "http://%HOSTNAME%.local/set_brightness?value={{ brightness }}"
+    method: GET</pre>
+        </div>
+    </details>
+
+    <details class="card">
+        <summary>Advanced usage: API Endpoints</summary>
+        <div style="margin-top: 15px;">
+            <ul>
+                <li>
+                    <code>POST /colors</code><br>
+                    <small>Body: JSON Array <code>[{"name":"orange", "hex":"#ff4000"}]</code></small>
+                </li>
+                <li>
+                    <code>POST /schedule</code><br>
+                    <small>Body: JSON Array <code>[{"time":"HH:MM", "color":"red", "countdown":true, "days":[true,true,true,true,true,true,true]}]</code></small>
+                </li>
+                <li>
+                    <code>GET /set_brightness</code><br>
+                    <small>Param <code>value</code>: 0-100</small>
+                </li>
+                <li>
+                    <code>GET /set_color</code><br>
+                    <small>Note: this will force the color until the next scheduled change.</small><br>
+                    <small>Param <code>value</code>: off, red, orange, green, etc.</small>
+                </li>
+                <li>
+                    <code>GET /set_timezone</code><br>
+                    <small>Param <code>value</code>: TZ string (e.g. <code>CET-1CEST...</code>)</small>
+                </li>
+                <li>
+                    <code>GET /status</code><br>
+                    <small>Returns JSON status</small>
+                </li>
+            </ul>
+        </div>
+    </details>
+
+    <div style="text-align: center; font-size: 0.8em; color: #888; margin-top: 30px;">
+        MAC: %MAC%<br>IP: %IP%
+    </div>
+
+    <script src="/common.js"></script>
+    <script src="/index.js"></script>
+</body>
+</html>
