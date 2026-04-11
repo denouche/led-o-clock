@@ -49,4 +49,5 @@ jobs:
           python3 -m pip install -U platformio
 
       - name: Run PlatformIO Build
+        working-directory: firmware
         run: pio run -e esp32-s3-devkitc1-n16r8
