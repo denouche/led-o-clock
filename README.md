@@ -19,7 +19,7 @@ This monorepo contains everything you need to build your own: the custom PCB, th
 
 The project is split into three main directories. Check the `README.md` inside each folder for specific instructions:
 
-1. **`/pcb`**: Schematics and Gerber files to manufacture the board (designed around the ESP-01S).
+1. **`/pcb`**: Schematics and Gerber files to manufacture the board (designed around the ESP32-C3).
 2. **`/enclosure`**: FreeCAD source file and ready-to-print STL files for the case.
 3. **`/firmware`**: PlatformIO project containing the C++ source code. 
 
