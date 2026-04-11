@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/denouche/led-o-clock/compare/0.1.1...0.2.0) (2026-04-11)
+
+
+### Features
+
+* **firmware:** add OTA update support ([87618de](https://github.com/denouche/led-o-clock/commit/87618deee0467314c9d811fd38103e1c16b057e7))
+
 ## [0.1.1](https://github.com/denouche/led-o-clock/compare/0.1.0...0.1.1) (2026-04-11)
 
 
