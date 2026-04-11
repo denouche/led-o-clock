@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/denouche/led-o-clock/compare/0.2.1...0.3.0) (2026-04-11)
+
+
+### Features
+
+* **enclosure:** add enclosure files ([ff69254](https://github.com/denouche/led-o-clock/commit/ff6925458fe482433d2bfd948a1ecf59863dcd38))
+
 ## [0.2.1](https://github.com/denouche/led-o-clock/compare/0.2.0...0.2.1) (2026-04-11)
 
 
