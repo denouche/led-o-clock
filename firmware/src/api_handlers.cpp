@@ -7,6 +7,7 @@
 #include "api_handlers.h"
 #include "config.h"
 #include "led_control.h"
+#include "ota_service.h"
 #include "storage.h"
 
 extern const uint8_t index_html_start[] asm("_binary_src_web_index_html_start");
@@ -92,6 +93,7 @@ void handleRoot() {
     html.replace("%HOSTNAME%", hostname);
     html.replace("%MAC%", WiFi.macAddress());
     html.replace("%IP%", WiFi.localIP().toString());
+    html.replace("%VERSION%", String(FIRMWARE_VERSION));
 
     server.send(200, "text/html", html);
 }
@@ -295,23 +297,32 @@ void handlePostColors() {
     server.send(200, "application/json", "{\"status\":\"saved\"}");
 }
 
+void handleGetFirmwareUpdate() {
+    Serial.println("handleGetFirmwareUpdate");
+    server.send(200, "application/json", "{\"status\":\"update check complete. If an update is available, the update will start soon.\"}");
+    // Give the server time to send the response
+    delay(2000);
+    updateFirmwareIfNeeded();
+}
+
 void handleFavicon() {
     server.send(204);
 }
 
 void initEndpoints() {
-    server.on("/",               HTTP_GET,  handleRoot);
-    server.on("/colors",         HTTP_POST, handlePostColors);
-    server.on("/configure",      HTTP_GET,  handleConfigure);
-    server.on("/favicon.ico",    HTTP_GET,  handleFavicon);
-    server.on("/ping",           HTTP_GET,  handlePing);
-    server.on("/reset_wifi",     HTTP_GET,  handleResetWifi);
-    server.on("/reset",          HTTP_GET,  handleResetAll);
-    server.on("/schedule",       HTTP_POST, handlePostSchedule);
-    server.on("/set_brightness", HTTP_GET,  handleSetBrightness);
-    server.on("/set_color",      HTTP_GET,  handleSetColor);
-    server.on("/set_timezone",   HTTP_GET,  handleSetTimezone);
-    server.on("/status",         HTTP_GET,  handleGetStatus);
+    server.on("/",                HTTP_GET,  handleRoot);
+    server.on("/colors",          HTTP_POST, handlePostColors);
+    server.on("/configure",       HTTP_GET,  handleConfigure);
+    server.on("/favicon.ico",     HTTP_GET,  handleFavicon);
+    server.on("/ping",            HTTP_GET,  handlePing);
+    server.on("/reset_wifi",      HTTP_GET,  handleResetWifi);
+    server.on("/reset",           HTTP_GET,  handleResetAll);
+    server.on("/schedule",        HTTP_POST, handlePostSchedule);
+    server.on("/set_brightness",  HTTP_GET,  handleSetBrightness);
+    server.on("/set_color",       HTTP_GET,  handleSetColor);
+    server.on("/set_timezone",    HTTP_GET,  handleSetTimezone);
+    server.on("/status",          HTTP_GET,  handleGetStatus);
+    server.on("/firmware_update", HTTP_GET,  handleGetFirmwareUpdate);
 
     // --- Static Web Assets (Streamed directly from PROGMEM) ---
     server.on("/common.css", HTTP_GET, []() {

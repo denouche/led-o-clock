@@ -14,5 +14,6 @@ void forceStateEvaluation();
 void checkTimeEvents();
 void initLedRing();
 void showFactoryResetFeedback();
+void showFirmwareUpdateFeedback();
 
 #endif

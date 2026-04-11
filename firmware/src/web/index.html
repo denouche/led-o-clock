@@ -18,6 +18,7 @@
         <p>Go to <a href="/configure">Configuration Dashboard</a></p>
         <p>WiFi: <a href="/reset_wifi" onclick="return confirmResetWifi(event)">Reset WiFi Configuration</a></p>
         <p>Reset: <a href="/reset" onclick="return confirmReset(event)">Reset all Configuration</a></p>
+        <p>Firmware Update: <a href="/firmware_update">Check for firmware update</a></p>
     </div>
 
     <details class="card">
@@ -86,7 +87,9 @@ rest_command:
     </details>
 
     <div style="text-align: center; font-size: 0.8em; color: #888; margin-top: 30px;">
-        MAC: %MAC%<br>IP: %IP%
+        MAC: %MAC%<br>
+        IP: %IP%<br>
+        VERSION: %VERSION%
     </div>
 
     <script src="/common.js"></script>

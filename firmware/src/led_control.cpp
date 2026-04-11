@@ -271,5 +271,12 @@ void initLedRing() {
  * Visual feedback for factory reset.
  */
 void showFactoryResetFeedback() {
-    setRingRgb(200, 0, 200);
+    setRingRgb(255, 0, 0); // Red
+}
+
+/**
+ * Visual feedback for firmware update.
+ */
+void showFirmwareUpdateFeedback() {
+    setRingRgb(200, 0, 200); // Purple light
 }

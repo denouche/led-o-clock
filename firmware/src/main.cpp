@@ -10,7 +10,8 @@
  * - Light Blue: System booting and attempting to connect to WiFi.
  * - Yellow: WiFi Configuration mode (Access Point active).
  * - Green (Blinks 5 times): WiFi connection successful.
- * - Purple: Factory Reset in progress.
+ * - Purple: Firmware update in progress.
+ * - Red: Factory Reset in progress.
  */
 
 #include <Adafruit_NeoPixel.h>
@@ -30,9 +31,9 @@
 #include "web/wifi_manager_html.h"
 
 #ifndef BUILD_TAG
-#define BUILD_TAG "dev-build"
+    #define BUILD_TAG "build-dev"
 #endif
-const char* FIRMWARE_VERSION = BUILD_TAG;
+const char* FIRMWARE_VERSION = (BUILD_TAG[0] == '\0') ? "dev-build" : BUILD_TAG;
 
 // --- State Management ---
 Schedule schedules[MAX_SCHEDULES];
@@ -211,7 +212,7 @@ void loop() {
         } else if (millis() - buttonPressStartTime > 5000) {
             showFactoryResetFeedback();
 
-            // Give the user 2 seconds to see the purple light before the reset process begins
+            // Give the user 2 seconds to see the red before the reset process begins
             delay(2000);
             
             performFactoryReset();
