@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/denouche/led-o-clock/compare/0.2.0...0.2.1) (2026-04-11)
+
+
+### Bug Fixes
+
+* **firmware:** add missing firmware upgrade documentation on index ([eac0821](https://github.com/denouche/led-o-clock/commit/eac082140b3520e5f0013a624b8bb06c9eb9eabd))
+
 # [0.2.0](https://github.com/denouche/led-o-clock/compare/0.1.1...0.2.0) (2026-04-11)
 
 
