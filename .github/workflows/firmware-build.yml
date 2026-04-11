@@ -50,4 +50,4 @@ jobs:
 
       - name: Run PlatformIO Build
         working-directory: firmware
-        run: pio run -e esp32-s3-devkitc1-n16r8
+        run: pio run -e esp32-c3-wroom-02
