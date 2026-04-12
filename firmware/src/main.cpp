@@ -64,22 +64,6 @@ void configureWiFiRoaming() {
     esp_wifi_set_config(WIFI_IF_STA, &conf);
 }
 
-
-/**
- * Blink green 5 times to indicate successful connection
- */
-void blinkForWifiSuccess()
-{
-    setBrightness(1); // Low brightness for feedback
-    for (int i = 0; i < 5; i++)
-    {
-        setRingRgb(0, 255, 0); // Green ON
-        delay(300);
-        setRingRgb(0, 0, 0); // OFF
-        delay(300);
-    }
-}
-
 /**
  * Performs a complete factory reset: WiFi, Filesystem, and EEPROM
  */
@@ -144,7 +128,7 @@ void setup() {
     });
 
     wm.setSaveConfigCallback([](){
-        blinkForWifiSuccess();
+        showWifiSuccessFeedback();
         // we wait for 30sec after saving but before turning off the AP
         // to let the user read the confirmation message on their phone.
         // Otherwise, the AP would disappear immediately after saving, which can be confusing.
@@ -167,7 +151,7 @@ void setup() {
 
     Serial.println("Connected to WiFi. IP address: " + WiFi.localIP().toString());
 
-    blinkForWifiSuccess();
+    showWifiSuccessFeedback();
 
     // --- Preferences Initialization ---
     initPreferences();
