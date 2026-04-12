@@ -2,6 +2,7 @@
 #include <ArduinoJson.h>
 #include <LittleFS.h>
 #include <Preferences.h>
+#include <WiFiManager.h>
 
 #include "config.h"
 #include "storage.h"
@@ -232,4 +233,27 @@ void cleanupStorage() {
     if (LittleFS.exists(COLORS_FILE)) {
         LittleFS.remove(COLORS_FILE);
     }
+}
+
+/**
+ * Performs a complete factory reset: WiFi, Filesystem, and EEPROM
+ */
+void performFactoryReset() {
+    Serial.println("Performing Factory Reset...");
+
+    // 1. Clear WiFi settings
+    WiFiManager wm;
+    wm.resetSettings();
+
+    // 2. Clear LittleFS saved files
+    cleanupStorage();
+
+    // 3. Clear Preferences (NVS)
+    clearPreferences();
+
+    Serial.println("Factory Reset complete. Restarting...");
+    
+    // Give time for Serial to flush
+    delay(1000); 
+    ESP.restart();
 }

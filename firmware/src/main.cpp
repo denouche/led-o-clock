@@ -64,29 +64,6 @@ void configureWiFiRoaming() {
     esp_wifi_set_config(WIFI_IF_STA, &conf);
 }
 
-/**
- * Performs a complete factory reset: WiFi, Filesystem, and EEPROM
- */
-void performFactoryReset() {
-    Serial.println("Performing Factory Reset...");
-
-    // 1. Clear WiFi settings
-    WiFiManager wm;
-    wm.resetSettings();
-
-    // 2. Clear LittleFS saved files
-    cleanupStorage();
-
-    // 3. Clear Preferences (NVS)
-    clearPreferences();
-
-    Serial.println("Factory Reset complete. Restarting...");
-    
-    // Give time for Serial to flush
-    delay(1000); 
-    ESP.restart();
-}
-
 void setup() {
     Serial.begin(115200);
     delay(500); // Allow time for Native USB Serial to initialize
@@ -195,10 +172,6 @@ void loop() {
             buttonPressStartTime = millis();
         } else if (millis() - buttonPressStartTime > 5000) {
             showFactoryResetFeedback();
-
-            // Give the user 2 seconds to see the red before the reset process begins
-            delay(2000);
-            
             performFactoryReset();
         }
     } else {

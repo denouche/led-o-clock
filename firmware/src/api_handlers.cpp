@@ -134,18 +134,8 @@ void handleResetAll() {
     // Give the server time to send the response
     delay(1000);
 
-    WiFiManager wm;
-    wm.resetSettings();
-
-    // 2. Clear LittleFS saved files
-    cleanupStorage();
-
-    // 3. Clear Preferences (NVS)
-    clearPreferences();
-
-    // Give time for Serial to flush
-    delay(1000); 
-    ESP.restart();
+    showFactoryResetFeedback();
+    performFactoryReset();
 }
 
 void handleGetStatus() {
