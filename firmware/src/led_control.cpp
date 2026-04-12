@@ -271,8 +271,7 @@ void initLedRing() {
  * Visual feedback for factory reset.
  */
 void showFactoryResetFeedback() {
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         setRingRgb(255, 0, 0); // Red ON
         delay(300);
         setRingRgb(0, 0, 0); // OFF
@@ -292,8 +291,7 @@ void showFirmwareUpdateFeedback() {
  */
 void showWifiSuccessFeedback() {
     setBrightness(1); // Low brightness for feedback
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         setRingRgb(0, 255, 0); // Green ON
         delay(300);
         setRingRgb(0, 0, 0); // OFF
