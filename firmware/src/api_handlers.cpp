@@ -318,6 +318,21 @@ void handlePostFirmwareUpdate() {
     updateFirmwareIfNeeded();
 }
 
+void handleCheckFirmware() {
+    Serial.println("handleCheckFirmware");
+
+    FirmwareInfo info = getLatestFirmwareInfo();
+
+    JsonDocument doc;
+    doc["current_version"] = FIRMWARE_VERSION;
+    doc["latest_version"] = info.latestVersion;
+    doc["update_available"] = (info.downloadUrl != "");
+
+    String response;
+    serializeJson(doc, response);
+    server.send(200, "application/json", response);
+}
+
 void handleFavicon() {
     server.send(204);
 }
@@ -336,6 +351,7 @@ void initEndpoints() {
     server.on("/set_timezone",    HTTP_GET,  handleSetTimezone);
     server.on("/status",          HTTP_GET,  handleGetStatus);
     server.on("/firmware_update", HTTP_POST, handlePostFirmwareUpdate);
+    server.on("/firmware_check",  HTTP_GET,  handleCheckFirmware);
 
     // --- Static Web Assets (Streamed directly from PROGMEM) ---
     server.on("/common.css", HTTP_GET, []() {
