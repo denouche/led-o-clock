@@ -26,12 +26,22 @@ async function checkFirmwareVersion() {
         if (response.ok) {
             const data = await response.json();
             if (data.update_available) {
-                infoEl.innerHTML = 'current: <b>' + data.current_version + '</b>, new version available: <b>' + data.latest_version + '</b>';
+                infoEl.textContent = '';
+                infoEl.append('current: ');
+                appendBold(infoEl, data.current_version);
+                infoEl.append(', new version available: ');
+                appendBold(infoEl, data.latest_version);
                 updateBtn.style.display = 'inline-block';
             } else if (data.latest_version) {
-                infoEl.innerHTML = 'current: <b>' + data.current_version + '</b> (up to date)';
+                infoEl.textContent = '';
+                infoEl.append('current: ');
+                appendBold(infoEl, data.current_version);
+                infoEl.append(' (up to date)');
             } else {
-                infoEl.innerHTML = 'current: <b>' + data.current_version + '</b> (unable to check for updates)';
+                infoEl.textContent = '';
+                infoEl.append('current: ');
+                appendBold(infoEl, data.current_version);
+                infoEl.append(' (unable to check for updates)');
             }
         } else {
             infoEl.textContent = 'Failed to check for updates.';
@@ -41,6 +51,12 @@ async function checkFirmwareVersion() {
     } finally {
         checkBtn.disabled = false;
     }
+}
+
+function appendBold(parent, text) {
+    const b = document.createElement('b');
+    b.textContent = text;
+    parent.appendChild(b);
 }
 
 async function triggerFirmwareUpdate() {
