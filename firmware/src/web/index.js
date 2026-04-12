@@ -13,50 +13,63 @@ async function fetchStatus() {
 }
 
 async function checkFirmwareVersion() {
-    const infoEl = document.getElementById('firmware-info');
-    const updateBtn = document.getElementById('btn-firmware-update');
-    const checkBtn = document.getElementById('btn-firmware-check');
-    
-    infoEl.textContent = 'Checking for updates...';
-    updateBtn.style.display = 'none';
-    checkBtn.disabled = true;
+    const checkingEl = document.getElementById('firmware-current-checking');
+    const currentEl = document.getElementById('firmware-current');
+    const currentVersionEl = document.getElementById('firmware-current-version');
+    const updateNewEl = document.getElementById('firmware-update-new');
+    const updateNewVersionEl = document.getElementById('firmware-update-new-version');
+    const updateUptodateEl = document.getElementById('firmware-update-uptodate');
+
+    checkingEl.style.display = '';
+    currentEl.style.display = 'none';
+    currentVersionEl.textContent = '';
+    updateNewEl.style.display = 'none';
+    updateNewVersionEl.textContent = '';
+    updateUptodateEl.style.display = 'none';
 
     try {
         const response = await fetch('/firmware_check');
+        checkingEl.style.display = 'none';
         if (response.ok) {
             const data = await response.json();
+            currentEl.style.display = '';
+            currentVersionEl.textContent = data.current_version || '?';
             if (data.update_available) {
-                infoEl.textContent = '';
-                infoEl.append('current: ');
-                appendBold(infoEl, data.current_version);
-                infoEl.append(', new version available: ');
-                appendBold(infoEl, data.latest_version);
-                updateBtn.style.display = 'inline-block';
+                updateNewEl.style.display = '';
+                updateUptodateEl.style.display = 'none';
+                updateNewVersionEl.textContent = data.latest_version;
             } else if (data.latest_version) {
-                infoEl.textContent = '';
-                infoEl.append('current: ');
-                appendBold(infoEl, data.current_version);
-                infoEl.append(' (up to date)');
+                updateNewEl.style.display = 'none';
+                updateUptodateEl.style.display = '';
+                updateNewVersionEl.textContent = '';
             } else {
-                infoEl.textContent = '';
-                infoEl.append('current: ');
-                appendBold(infoEl, data.current_version);
-                infoEl.append(' (unable to check for updates)');
+                updateNewEl.style.display = 'none';
+                updateUptodateEl.style.display = 'none';
+                currentVersionEl.textContent += ' (unable to check for updates)';
             }
         } else {
-            infoEl.textContent = 'Failed to check for updates.';
+            currentEl.style.display = '';
+            currentVersionEl.textContent = 'Failed to check for updates.';
+            updateNewEl.style.display = 'none';
+            updateUptodateEl.style.display = 'none';
+            updateNewVersionEl.textContent = '';
         }
     } catch (e) {
-        infoEl.textContent = 'Unable to reach the device.';
-    } finally {
-        checkBtn.disabled = false;
+        checkingEl.style.display = 'none';
+        currentEl.style.display = '';
+        currentVersionEl.textContent = 'Unable to reach the device.';
+        updateNewEl.style.display = 'none';
+        updateUptodateEl.style.display = 'none';
+        updateNewVersionEl.textContent = '';
     }
 }
 
-function appendBold(parent, text) {
-    const b = document.createElement('b');
-    b.textContent = text;
-    parent.appendChild(b);
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/[&<>"']/g, function (c) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c];
+    });
 }
 
 async function triggerFirmwareUpdate() {

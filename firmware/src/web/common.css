@@ -53,19 +53,18 @@ details[open] summary {
     margin-bottom: 10px;
 }
 
-ul { 
-    list-style-type: none; 
-    padding: 0; 
+/* API Endpoints section styles */
+.api-endpoints-list {
+    list-style-type: none;
+    padding: 0;
 }
-
-li { 
-    padding: 10px 0; 
-    border-bottom: 1px solid #eee; 
-    color: #666; 
+.api-endpoints-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    color: #666;
 }
-
-li:last-child { 
-    border-bottom: none; 
+.api-endpoints-item:last-child {
+    border-bottom: none;
 }
 
 code { 

@@ -24,7 +24,7 @@ FirmwareInfo getLatestFirmwareInfo() {
         return info;
     }
 
-    http.addHeader("User-Agent", "Led-O-Clock-V3");
+    http.addHeader("User-Agent", "led-o-clock/" + String(FIRMWARE_VERSION));
     
     int code = http.GET();
 

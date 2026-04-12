@@ -18,11 +18,15 @@
         <p>Go to <a href="/configure">Configuration Dashboard</a></p>
         <p>WiFi: <a href="/reset_wifi" onclick="return confirmResetWifi(event)">Reset WiFi Configuration</a></p>
         <p>Reset: <a href="/reset" onclick="return confirmReset(event)">Reset all Configuration</a></p>
-        <p>Firmware Update:
-            <span id="firmware-info">Checking for updates...</span>
-            <button id="btn-firmware-update" onclick="triggerFirmwareUpdate()" style="display:none;">Update now</button>
-            <button id="btn-firmware-check" onclick="checkFirmwareVersion()">🔄</button>
-        </p>
+        <div>
+            <span>Firmware version:</span>
+            <ul id="firmware-info-list" style="margin: 0 0 0 20px; padding: 0; list-style-type: disc;">
+                <li id="firmware-current-checking">Checking for updates...</li>
+                <li id="firmware-current">current version: <span id="firmware-current-version"></span></li>
+                <li id="firmware-update-new">new version available: <a href="https://github.com/denouche/led-o-clock/releases" target="_blank" id="firmware-update-new-version"></a><button id="btn-firmware-update" onclick="triggerFirmwareUpdate()" style="margin-left: 10px;">Update</button></li>
+                <li id="firmware-update-uptodate">your device is up to date</li>
+            </ul>
+        </div>
     </div>
 
     <details class="card">
@@ -60,37 +64,37 @@ rest_command:
     <details class="card">
         <summary>Advanced usage: API Endpoints</summary>
         <div style="margin-top: 15px;">
-            <ul>
-                <li>
+            <ul class="api-endpoints-list">
+                <li class="api-endpoints-item">
                     <code>POST /colors</code><br>
                     <small>Body: JSON Array <code>[{"name":"orange", "hex":"#ff4000"}]</code></small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>POST /schedule</code><br>
                     <small>Body: JSON Array <code>[{"time":"HH:MM", "color":"red", "countdown":true, "days":[true,true,true,true,true,true,true]}]</code></small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>GET /set_brightness</code><br>
                     <small>Param <code>value</code>: 0-100</small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>GET /set_color</code><br>
                     <small>Note: this will force the color until the next scheduled change.</small><br>
                     <small>Param <code>value</code>: off, red, orange, green, etc.</small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>GET /set_timezone</code><br>
                     <small>Param <code>value</code>: TZ string (e.g. <code>CET-1CEST...</code>)</small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>GET /status</code><br>
                     <small>Returns JSON status</small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>POST /firmware_update</code><br>
                     <small>Check for new firmware and install it if available</small>
                 </li>
-                <li>
+                <li class="api-endpoints-item">
                     <code>GET /firmware_check</code><br>
                     <small>Returns JSON with current_version, latest_version, and update_available</small>
                 </li>
