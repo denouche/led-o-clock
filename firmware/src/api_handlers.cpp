@@ -91,6 +91,16 @@ void handleRoot() {
 
     String chipId = getUniqueChipId();
     String hostname = "ledoclock-" + chipId;
+    String mac = WiFi.macAddress();
+    String ip = WiFi.localIP().toString();
+
+    String etag = "\"" + String(FIRMWARE_VERSION) + "-" + ip + "\"";
+    if (server.hasHeader("If-None-Match") && server.header("If-None-Match") == etag) {
+        server.sendHeader("Cache-Control", "no-cache");
+        server.sendHeader("ETag", etag);
+        server.send(304);
+        return;
+    }
 
     // load index.html from Flash and replace placeholders
     String html = getEmbedString(index_html_start, index_html_end);
@@ -101,10 +111,12 @@ void handleRoot() {
     }
 
     html.replace("%HOSTNAME%", hostname);
-    html.replace("%MAC%", WiFi.macAddress());
-    html.replace("%IP%", WiFi.localIP().toString());
+    html.replace("%MAC%", mac);
+    html.replace("%IP%", ip);
     html.replace("%VERSION%", String(FIRMWARE_VERSION));
 
+    server.sendHeader("Cache-Control", "no-cache");
+    server.sendHeader("ETag", etag);
     server.send(200, "text/html", html);
 }
 
@@ -342,6 +354,8 @@ void initEndpoints() {
         serveStaticEmbed(configuration_js_start, configuration_js_end, "text/javascript");
     });
 
+    const char* headerKeys[] = { "If-None-Match" };
+    server.collectHeaders(headerKeys, 1);
     server.begin();
 }
 
