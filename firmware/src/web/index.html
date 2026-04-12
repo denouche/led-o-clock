@@ -18,7 +18,7 @@
         <p>Go to <a href="/configure">Configuration Dashboard</a></p>
         <p>WiFi: <a href="/reset_wifi" onclick="return confirmResetWifi(event)">Reset WiFi Configuration</a></p>
         <p>Reset: <a href="/reset" onclick="return confirmReset(event)">Reset all Configuration</a></p>
-        <p>Firmware Update: <a href="/firmware_update">Check for firmware update</a></p>
+        <p>Firmware Update: <button id="btn-firmware-update" onclick="triggerFirmwareUpdate()">Check for firmware update</button></p>
     </div>
 
     <details class="card">
@@ -83,7 +83,7 @@ rest_command:
                     <small>Returns JSON status</small>
                 </li>
                 <li>
-                    <code>GET /firmware_update</code><br>
+                    <code>POST /firmware_update</code><br>
                     <small>Check for new firmware and install it if available</small>
                 </li>
             </ul>

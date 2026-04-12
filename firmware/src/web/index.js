@@ -12,4 +12,21 @@ async function fetchStatus() {
     }
 }
 
+async function triggerFirmwareUpdate() {
+    const btn = document.getElementById('btn-firmware-update');
+    btn.disabled = true;
+    try {
+        const response = await fetch('/firmware_update', { method: 'POST' });
+        if (response.ok) {
+            showMessage('Firmware update check started. If an update is available, it will install soon.');
+        } else {
+            showMessage('Firmware update request failed.', 'error');
+        }
+    } catch (e) {
+        showMessage('Unable to reach the device.', 'error');
+    } finally {
+        btn.disabled = false;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', fetchStatus);

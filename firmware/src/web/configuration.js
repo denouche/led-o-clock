@@ -109,29 +109,6 @@ function removeColorRow(index) {
     markColorsDirty();
 }
 
-function showMessage(text, type = 'success') {
-    let toast = document.getElementById('toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast';
-        document.body.appendChild(toast);
-    }
-
-    // Reset any pending hide timer
-    clearTimeout(toast._hideTimer);
-
-    toast.textContent = text;
-    toast.className = `toast ${type}`;
-
-    // Trigger reflow to restart the CSS transition if called twice quickly
-    void toast.offsetWidth;
-    toast.classList.add('show');
-
-    toast._hideTimer = setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
 function checkScheduleLimit() {
     const currentCount = document.querySelectorAll('.schedule').length;
     const addBtn = document.getElementById('addScheduleBtn');

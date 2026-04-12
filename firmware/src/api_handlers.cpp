@@ -310,9 +310,9 @@ void handlePostColors() {
     server.send(200, "application/json", "{\"status\":\"saved\"}");
 }
 
-void handleGetFirmwareUpdate() {
-    Serial.println("handleGetFirmwareUpdate");
-    server.send(200, "application/json", "{\"status\":\"update check complete. If an update is available, the update will start soon.\"}");
+void handlePostFirmwareUpdate() {
+    Serial.println("handlePostFirmwareUpdate");
+    server.send(204);
     // Give the server time to send the response
     delay(2000);
     updateFirmwareIfNeeded();
@@ -335,7 +335,7 @@ void initEndpoints() {
     server.on("/set_color",       HTTP_GET,  handleSetColor);
     server.on("/set_timezone",    HTTP_GET,  handleSetTimezone);
     server.on("/status",          HTTP_GET,  handleGetStatus);
-    server.on("/firmware_update", HTTP_GET,  handleGetFirmwareUpdate);
+    server.on("/firmware_update", HTTP_POST, handlePostFirmwareUpdate);
 
     // --- Static Web Assets (Streamed directly from PROGMEM) ---
     server.on("/common.css", HTTP_GET, []() {
