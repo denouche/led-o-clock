@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/denouche/led-o-clock/compare/0.5.0...0.6.0) (2026-04-12)
+
+
+### Features
+
+* **firmware:** display current and available firmware versions on web UI ([#5](https://github.com/denouche/led-o-clock/issues/5)) ([de0d7cf](https://github.com/denouche/led-o-clock/commit/de0d7cf7bd49da8f819df5712bd062cbf80a3978))
+
 # [0.5.0](https://github.com/denouche/led-o-clock/compare/0.4.0...0.5.0) (2026-04-12)
 
 
