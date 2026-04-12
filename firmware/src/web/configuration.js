@@ -154,7 +154,7 @@ function updateScheduleLabels() {
     });
 }
 
-function addScheduleRow(timeValue, colorValue, isCountdown, daysArray) {
+function addScheduleRow(timeValue, colorValue, isCountdown, daysArray, brightnessValue) {
     const container = document.getElementById('schedules');
     const currentCount = container.querySelectorAll('.schedule').length;
     
@@ -164,6 +164,9 @@ function addScheduleRow(timeValue, colorValue, isCountdown, daysArray) {
 
     const days = daysArray || [true, true, true, true, true, true, true];
     const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const brightnessPercent = Number.isFinite(brightnessValue)
+        ? Math.min(100, Math.max(0, brightnessValue))
+        : 50;
 
     const div = document.createElement('div');
     div.className = 'schedule';
@@ -176,10 +179,15 @@ function addScheduleRow(timeValue, colorValue, isCountdown, daysArray) {
             <input type="time" class="sched-time" value="${timeValue}" oninput="markSchedulesDirty()">
             <select class="color-dropdown sched-color" onchange="markSchedulesDirty()">
             </select>
-            <label style="font-size:0.9em">
+            <label>
                 <input type="checkbox" class="sched-countdown" ${checkedAttribute} onchange="markSchedulesDirty()"> Countdown
             </label>
             <button type="button" class="clear-btn" style="margin-left:auto" onclick="removeScheduleRow(this)">X</button>
+        </div>
+        <div class="schedule-options">
+            <span>Brightness:</span>
+            <input type="range" class="sched-brightness" min="0" max="100" value="${brightnessPercent}" oninput="this.nextElementSibling.textContent=this.value; markSchedulesDirty()" style="flex-grow: 1;">
+            <span class="sched-brightness-value">${brightnessPercent}</span>%
         </div>
         <div class="schedule-days">
             <span>Applies on:</span>
@@ -253,7 +261,7 @@ async function loadConfig() {
         document.getElementById('schedules').innerHTML = '';
         
         d.schedules.forEach((s) => {
-            addScheduleRow(s.time, s.color, s.countdown, s.days);
+            addScheduleRow(s.time, s.color, s.countdown, s.days, s.brightness);
         });
         
         isColorModified = false; 
@@ -277,11 +285,6 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
     btn.textContent = "SAVING...";
 
     try {
-        if (isBrightnessDirty) {
-            const bright = document.getElementById('brightness').value;
-            await fetch(`/set_brightness?value=${bright}`);
-        }
-
         if (isTimezoneDirty) {
             const tz = encodeURIComponent(document.getElementById('timezone').value);
             await fetch(`/set_timezone?value=${tz}`);
@@ -305,9 +308,10 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
                 const cd = block.querySelector('.sched-countdown').checked;
                 const dCbs = block.querySelectorAll('.day-cb');
                 const daysArr = Array.from(dCbs).map(cb => cb.checked);
+                const brightVal = parseInt(block.querySelector('.sched-brightness').value, 10);
                 
                 if (t && c) {
-                    schedData.push({ time: t, color: c, countdown: cd, days: daysArr });
+                    schedData.push({ time: t, color: c, countdown: cd, brightness: brightVal, days: daysArr });
                 }
             });
             
@@ -321,6 +325,11 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
         if (isColorModified) {
             const colorOverride = document.getElementById('current-color').value;
             await fetch(`/set_color?value=${colorOverride}`);
+        }
+
+        if (isBrightnessDirty) {
+            const bright = document.getElementById('brightness').value;
+            await fetch(`/set_brightness?value=${bright}`);
         }
 
         btn.disabled = false;

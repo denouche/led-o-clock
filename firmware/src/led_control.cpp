@@ -226,6 +226,7 @@ void forceStateEvaluation() {
     }
 
     if (activeIndex != -1) {
+        setBrightness(schedules[activeIndex].brightness);
         applyColor(schedules[activeIndex].color);
     } else {
         applyColor("off");
@@ -256,6 +257,7 @@ void checkTimeEvents() {
                 schedules[i].hour == p_tm->tm_hour && 
                 schedules[i].minute == p_tm->tm_min) {
                 
+                setBrightness(schedules[i].brightness);
                 applyColor(schedules[i].color);
             }
         }

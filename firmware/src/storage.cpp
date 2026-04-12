@@ -173,7 +173,8 @@ void loadSchedulesFromFS() {
                 schedules[scheduleCount].minute = timeStr.substring(3, 5).toInt();
                 schedules[scheduleCount].color  = obj["color"].as<String>();
                 schedules[scheduleCount].active = true;
-                schedules[scheduleCount].countdown = obj["countdown"] | false; 
+                schedules[scheduleCount].countdown = obj["countdown"] | false;
+                schedules[scheduleCount].brightness = obj["brightness"] | 50;
                 
                 // Read the 7 days array if it exists
                 if (obj["days"].is<JsonArray>()) {

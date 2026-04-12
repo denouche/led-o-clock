@@ -104,17 +104,28 @@ code {
     display: flex; 
     align-items: center; 
     gap: 10px; 
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    font-size: 0.9em;
 }
 
 .schedule-days {
     margin-top: 10px;
-    font-size: 0.85em;
     color: #444;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
+    font-size: 0.9em;
+}
+
+.schedule-options {
+    margin-top: 8px;
+    color: #444;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.9em;
 }
 
 input[type="time"], select, input[type="text"] { 
@@ -196,6 +207,12 @@ input[type="time"], select, input[type="text"] {
     display: flex; 
     align-items: center; 
     margin-bottom: 15px;
+}
+
+.helper-text {
+    margin-top: 0;
+    font-size: 0.85em;
+    color: #666;
 }
 
 .state-label {

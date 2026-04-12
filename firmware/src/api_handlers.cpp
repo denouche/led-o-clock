@@ -62,7 +62,17 @@ size_t getCleanSize(const uint8_t* start, const uint8_t* end) {
  */
 void serveStaticEmbed(const uint8_t* start, const uint8_t* end, const char* contentType) {
     size_t size = getCleanSize(start, end);
+    String etag = "\"" + String(FIRMWARE_VERSION) + "\"";
+
+    if (server.hasHeader("If-None-Match") && server.header("If-None-Match") == etag) {
+        server.sendHeader("Cache-Control", "public, max-age=86400");
+        server.sendHeader("ETag", etag);
+        server.send(304);
+        return;
+    }
+
     server.sendHeader("Cache-Control", "public, max-age=86400");
+    server.sendHeader("ETag", etag);
     server.send_P(200, contentType, (const char*)start, size);
 }
 
@@ -81,6 +91,16 @@ void handleRoot() {
 
     String chipId = getUniqueChipId();
     String hostname = "ledoclock-" + chipId;
+    String mac = WiFi.macAddress();
+    String ip = WiFi.localIP().toString();
+
+    String etag = "\"" + String(FIRMWARE_VERSION) + "-" + ip + "\"";
+    if (server.hasHeader("If-None-Match") && server.header("If-None-Match") == etag) {
+        server.sendHeader("Cache-Control", "no-cache");
+        server.sendHeader("ETag", etag);
+        server.send(304);
+        return;
+    }
 
     // load index.html from Flash and replace placeholders
     String html = getEmbedString(index_html_start, index_html_end);
@@ -91,10 +111,12 @@ void handleRoot() {
     }
 
     html.replace("%HOSTNAME%", hostname);
-    html.replace("%MAC%", WiFi.macAddress());
-    html.replace("%IP%", WiFi.localIP().toString());
+    html.replace("%MAC%", mac);
+    html.replace("%IP%", ip);
     html.replace("%VERSION%", String(FIRMWARE_VERSION));
 
+    server.sendHeader("Cache-Control", "no-cache");
+    server.sendHeader("ETag", etag);
     server.send(200, "text/html", html);
 }
 
@@ -184,6 +206,7 @@ void handleGetStatus() {
         s["time"] = timeBuf;
         s["color"] = schedules[i].color;
         s["countdown"] = schedules[i].countdown;
+        s["brightness"] = schedules[i].brightness;
         
         JsonArray daysArr = s["days"].to<JsonArray>();
         for (int d = 0; d < 7; d++) {
@@ -331,6 +354,8 @@ void initEndpoints() {
         serveStaticEmbed(configuration_js_start, configuration_js_end, "text/javascript");
     });
 
+    const char* headerKeys[] = { "If-None-Match" };
+    server.collectHeaders(headerKeys, 1);
     server.begin();
 }
 
