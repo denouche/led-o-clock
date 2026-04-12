@@ -308,7 +308,7 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
                 const cd = block.querySelector('.sched-countdown').checked;
                 const dCbs = block.querySelectorAll('.day-cb');
                 const daysArr = Array.from(dCbs).map(cb => cb.checked);
-                const brightVal = parseInt(block.querySelector('.sched-brightness').value);
+                const brightVal = parseInt(block.querySelector('.sched-brightness').value, 10);
                 
                 if (t && c) {
                     schedData.push({ time: t, color: c, countdown: cd, brightness: brightVal, days: daysArr });
