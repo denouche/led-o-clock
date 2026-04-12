@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/denouche/led-o-clock/compare/0.3.0...0.3.1) (2026-04-12)
+
+
+### Bug Fixes
+
+* **firmware:** factory reset feedback is now a red blink 5 times ([#1](https://github.com/denouche/led-o-clock/issues/1)) ([de2a2db](https://github.com/denouche/led-o-clock/commit/de2a2dbc27fe11c1482be1cc582173bf9838cc6d))
+
 # [0.3.0](https://github.com/denouche/led-o-clock/compare/0.2.1...0.3.0) (2026-04-11)
 
 
