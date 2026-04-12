@@ -62,9 +62,17 @@ size_t getCleanSize(const uint8_t* start, const uint8_t* end) {
  */
 void serveStaticEmbed(const uint8_t* start, const uint8_t* end, const char* contentType) {
     size_t size = getCleanSize(start, end);
-    server.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    server.sendHeader("Pragma", "no-cache");
-    server.sendHeader("Expires", "-1");
+    String etag = "\"" + String(FIRMWARE_VERSION) + "\"";
+
+    if (server.hasHeader("If-None-Match") && server.header("If-None-Match") == etag) {
+        server.sendHeader("Cache-Control", "public, max-age=86400");
+        server.sendHeader("ETag", etag);
+        server.send(304);
+        return;
+    }
+
+    server.sendHeader("Cache-Control", "public, max-age=86400");
+    server.sendHeader("ETag", etag);
     server.send_P(200, contentType, (const char*)start, size);
 }
 
