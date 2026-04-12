@@ -164,7 +164,9 @@ function addScheduleRow(timeValue, colorValue, isCountdown, daysArray, brightnes
 
     const days = daysArray || [true, true, true, true, true, true, true];
     const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    const brightnessPercent = (brightnessValue !== undefined && brightnessValue >= 0) ? brightnessValue : 50;
+    const brightnessPercent = Number.isFinite(brightnessValue)
+        ? Math.min(100, Math.max(0, brightnessValue))
+        : 50;
 
     const div = document.createElement('div');
     div.className = 'schedule';
