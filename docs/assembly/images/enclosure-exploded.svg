@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" font-family="Arial, sans-serif">
+  <rect width="640" height="430" fill="#f9fafb" rx="6"/>
+  <text x="320" y="27" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2937">Led'o'clock — Enclosure Exploded View</text>
+  <line x1="20" y1="36" x2="620" y2="36" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Perspective offset: +16 right, -8 up for top/right depth faces -->
+
+  <!-- ══ ① LID ══ -->
+  <!-- Top face (parallelogram) -->
+  <polygon points="130,75 146,67 441,67 425,75" fill="#6a93c8"/>
+  <!-- Front face -->
+  <rect x="130" y="75" width="295" height="22" fill="#4a6d9e"/>
+  <!-- Right face -->
+  <polygon points="425,75 441,67 441,89 425,97" fill="#3a5c8e"/>
+  <!-- Step circle -->
+  <circle cx="118" cy="86" r="11" fill="#4a6d9e" stroke="white" stroke-width="1.5"/>
+  <text x="118" y="90" text-anchor="middle" font-size="10" font-weight="bold" fill="white">1</text>
+  <!-- Label -->
+  <line x1="441" y1="78" x2="458" y2="78" stroke="#9ca3af" stroke-width="1"/>
+  <text x="463" y="79" font-size="10" font-weight="bold" fill="#1f2937">Lid</text>
+  <text x="463" y="91" font-size="8.5" fill="#6b7280">64 × 64 × 4 mm</text>
+
+  <!-- ── Arrow 1: Lid → Ring retainer ── -->
+  <line x1="277" y1="99" x2="277" y2="148" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="271,147 277,158 283,147" fill="#9ca3af"/>
+
+  <!-- ══ ② RING RETAINER ══ -->
+  <!-- Top face -->
+  <polygon points="130,160 146,152 441,152 425,160" fill="#9fb5bf"/>
+  <!-- Front face -->
+  <rect x="130" y="160" width="295" height="8" fill="#708090"/>
+  <!-- Right face -->
+  <polygon points="425,160 441,152 441,160 425,168" fill="#5a7080"/>
+  <!-- Step circle -->
+  <circle cx="118" cy="164" r="11" fill="#708090" stroke="white" stroke-width="1.5"/>
+  <text x="118" y="168" text-anchor="middle" font-size="10" font-weight="bold" fill="white">2</text>
+  <!-- Label -->
+  <line x1="441" y1="162" x2="458" y2="162" stroke="#9ca3af" stroke-width="1"/>
+  <text x="463" y="163" font-size="10" font-weight="bold" fill="#1f2937">Ring Retainer</text>
+  <text x="463" y="175" font-size="8.5" fill="#6b7280">64 × 64 × 0.8 mm</text>
+
+  <!-- ── Arrow 2: Ring retainer → Box ── -->
+  <line x1="277" y1="178" x2="277" y2="225" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="271,224 277,235 283,224" fill="#9ca3af"/>
+
+  <!-- ══ ③ BOX BOTTOM ══ -->
+  <!-- Top face -->
+  <polygon points="130,238 146,230 441,230 425,238" fill="#3d8a8a"/>
+  <!-- Front face -->
+  <rect x="130" y="238" width="295" height="130" fill="#2a6b6b"/>
+  <!-- Right face -->
+  <polygon points="425,238 441,230 441,360 425,368" fill="#1e5b5b"/>
+  <!-- Step circle -->
+  <circle cx="118" cy="303" r="11" fill="#2a6b6b" stroke="white" stroke-width="1.5"/>
+  <text x="118" y="307" text-anchor="middle" font-size="10" font-weight="bold" fill="white">3</text>
+  <!-- Label -->
+  <line x1="441" y1="303" x2="458" y2="303" stroke="#9ca3af" stroke-width="1"/>
+  <text x="463" y="304" font-size="10" font-weight="bold" fill="#1f2937">Box Bottom</text>
+  <text x="463" y="316" font-size="8.5" fill="#6b7280">64 × 64 × 25 mm</text>
+
+  <!-- LED ring indicator inside box (at top, representing ring position) -->
+  <circle cx="277" cy="260" r="20" fill="none" stroke="#a5d6a7" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.7"/>
+  <circle cx="277" cy="260" r="12" fill="none" stroke="#a5d6a7" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+  <text x="277" y="264" text-anchor="middle" font-size="6.5" fill="#a5d6a7" opacity="0.9">LED ring</text>
+
+  <!-- PCB indicator inside box (at bottom) -->
+  <rect x="227" y="335" width="100" height="30" rx="3" fill="none" stroke="#a5d6a7" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.7"/>
+  <text x="277" y="355" text-anchor="middle" font-size="6.5" fill="#a5d6a7" opacity="0.9">PCB + ESP32-C3</text>
+
+  <!-- ══ Dimension: total height ══ -->
+  <line x1="460" y1="75" x2="460" y2="368" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="454" y1="75" x2="466" y2="75" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="454" y1="368" x2="466" y2="368" stroke="#d1d5db" stroke-width="1"/>
+  <text x="560" y="228" text-anchor="middle" font-size="9" fill="#6b7280">assembled:</text>
+  <text x="560" y="240" text-anchor="middle" font-size="9" font-weight="bold" fill="#374151">≈ 29 mm tall</text>
+
+  <!-- Footer -->
+  <rect x="20" y="392" width="600" height="26" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="320" y="409" text-anchor="middle" font-size="8.5" fill="#6b7280">Assembly order: ③ place LED ring in box → insert ② ring retainer → route cable → snap ① lid on top.</text>
+</svg>
+

@@ -22,7 +22,9 @@ The project is split into three main directories. Check the `README.md` inside e
 
 1. **`/pcb`**: Schematics and Gerber files to manufacture the board (designed around the ESP32-C3).
 2. **`/enclosure`**: FreeCAD source file and ready-to-print STL files for the case.
-3. **`/firmware`**: PlatformIO project containing the C++ source code. 
+3. **`/firmware`**: PlatformIO project containing the C++ source code.
+
+👉 **For a full step-by-step build guide** (wiring, 3D printing, flashing, first boot), see [`/docs/assembly`](docs/assembly/README.md).
 
 ## License
 

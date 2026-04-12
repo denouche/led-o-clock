@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 450" font-family="Arial, sans-serif">
+  <rect width="820" height="450" fill="#f9fafb" rx="6"/>
+  <text x="410" y="27" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Led'o'clock — Wiring Diagram</text>
+  <line x1="20" y1="36" x2="800" y2="36" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- ══ ESP32-C3-WROOM-02 ══ -->
+  <rect x="280" y="100" width="155" height="235" rx="6" fill="#1b5e20" stroke="#0a3e0a" stroke-width="2"/>
+  <rect x="288" y="108" width="139" height="219" rx="4" fill="none" stroke="#388e3c" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <!-- Antenna -->
+  <rect x="325" y="90" width="75" height="13" rx="3" fill="#0a3e0a"/>
+  <text x="357" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="white">ESP32-C3</text>
+  <text x="357" y="139" text-anchor="middle" font-size="8.5" fill="#a5d6a7">WROOM-02</text>
+
+  <!-- Right pins -->
+  <rect x="432" y="183" width="13" height="8" rx="1" fill="#a5d6a7"/>
+  <text x="452" y="191" font-size="10.5" fill="#111827" font-weight="bold">GPIO 3</text>
+  <rect x="432" y="223" width="13" height="8" rx="1" fill="#a5d6a7"/>
+  <text x="452" y="231" font-size="10.5" fill="#111827" font-weight="bold">5V</text>
+  <rect x="432" y="263" width="13" height="8" rx="1" fill="#a5d6a7"/>
+  <text x="452" y="271" font-size="10.5" fill="#111827" font-weight="bold">GND</text>
+
+  <!-- Left pins -->
+  <rect x="275" y="183" width="13" height="8" rx="1" fill="#a5d6a7"/>
+  <text x="270" y="191" text-anchor="end" font-size="10.5" fill="#111827" font-weight="bold">GPIO 9</text>
+  <rect x="275" y="223" width="13" height="8" rx="1" fill="#a5d6a7"/>
+  <text x="270" y="231" text-anchor="end" font-size="10.5" fill="#111827" font-weight="bold">GND</text>
+
+  <!-- USB-C indicator -->
+  <rect x="330" y="330" width="70" height="13" rx="6" fill="#a5d6a7"/>
+  <text x="365" y="340" text-anchor="middle" font-size="8.5" fill="#1b5e20" font-weight="bold">USB-C</text>
+  <text x="365" y="357" text-anchor="middle" font-size="8" fill="#6b7280">power / flash</text>
+
+  <!-- ══ WS2812B LED Ring ══ -->
+  <circle cx="672" cy="235" r="84" fill="#111827" stroke="#374151" stroke-width="2.5"/>
+  <circle cx="672" cy="235" r="53" fill="#1f2937"/>
+  <text x="672" y="231" text-anchor="middle" font-size="10" font-weight="bold" fill="#e5e7eb">WS2812B</text>
+  <text x="672" y="245" text-anchor="middle" font-size="9" fill="#9ca3af">12 LEDs</text>
+
+  <!-- 12 LED dots: center(672,235) r=68, 0°=top, CW, step 30° -->
+  <!-- x = 672 + 68*sin(θ), y = 235 - 68*cos(θ) -->
+  <circle cx="672" cy="167" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 0° -->
+  <circle cx="706" cy="176" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 30° -->
+  <circle cx="731" cy="201" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 60° -->
+  <circle cx="740" cy="235" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 90° -->
+  <circle cx="731" cy="269" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 120° -->
+  <circle cx="706" cy="294" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 150° -->
+  <circle cx="672" cy="303" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 180° -->
+  <circle cx="638" cy="294" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 210° -->
+  <circle cx="613" cy="269" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 240° -->
+  <circle cx="604" cy="235" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 270° -->
+  <circle cx="613" cy="201" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 300° -->
+  <circle cx="638" cy="176" r="5.5" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>  <!-- 330° -->
+
+  <!-- Ring connection pads (left side, ~9 o'clock) -->
+  <circle cx="589" cy="210" r="5" fill="#22c55e" stroke="#15803d" stroke-width="1.5"/>
+  <text x="582" y="201" text-anchor="end" font-size="9" fill="#15803d" font-weight="bold">DIN</text>
+  <circle cx="588" cy="235" r="5" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="582" y="254" text-anchor="end" font-size="9" fill="#b91c1c" font-weight="bold">+5V</text>
+  <circle cx="589" cy="260" r="5" fill="#4b5563" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="582" y="278" text-anchor="end" font-size="9" fill="#374151" font-weight="bold">GND</text>
+
+  <!-- ══ WIRES ══ -->
+  <!-- GPIO3 → DIN (green, data) -->
+  <path d="M 445 187 C 515 187 550 210 589 210" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 5V → +5V (red) -->
+  <path d="M 445 227 C 515 227 550 235 588 235" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- GND → GND ring (dark) -->
+  <path d="M 445 267 C 515 267 550 262 589 260" fill="none" stroke="#374151" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- ══ TACTILE BUTTON ══ -->
+  <rect x="48" y="206" width="86" height="52" rx="5" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="76" y="196" width="30" height="14" rx="4" fill="#6b7280" stroke="#4b5563" stroke-width="1"/>
+  <text x="91" y="230" text-anchor="middle" font-size="9" fill="#374151" font-weight="bold">BUTTON</text>
+  <text x="91" y="244" text-anchor="middle" font-size="7.5" fill="#9ca3af">(BOOT — GPIO 9)</text>
+  <!-- Button terminals -->
+  <line x1="134" y1="219" x2="148" y2="219" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="148" cy="219" r="3.5" fill="#6b7280"/>
+  <line x1="134" y1="243" x2="148" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="148" cy="243" r="3.5" fill="#6b7280"/>
+
+  <!-- GPIO9 → Button pin 1 (blue) -->
+  <path d="M 275 187 C 210 187 175 219 148 219" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- GND → Button pin 2 (dark) -->
+  <path d="M 275 227 C 210 227 175 243 148 243" fill="none" stroke="#374151" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- ══ LEGEND ══ -->
+  <rect x="20" y="396" width="780" height="42" rx="5" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="35" y="410" font-size="9" font-weight="bold" fill="#374151">Wires:</text>
+  <line x1="78" y1="407" x2="100" y2="407" stroke="#22c55e" stroke-width="2.5"/>
+  <text x="105" y="411" font-size="9" fill="#374151">Data (GPIO 3 → DIN)</text>
+  <line x1="238" y1="407" x2="260" y2="407" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="265" y="411" font-size="9" fill="#374151">5V Power</text>
+  <line x1="340" y1="407" x2="362" y2="407" stroke="#374151" stroke-width="2.5"/>
+  <text x="367" y="411" font-size="9" fill="#374151">Ground</text>
+  <line x1="432" y1="407" x2="454" y2="407" stroke="#3b82f6" stroke-width="2.5"/>
+  <text x="459" y="411" font-size="9" fill="#374151">Button signal (GPIO 9)</text>
+  <text x="35" y="428" font-size="8" fill="#6b7280">⚠ The 5V rail for the LED ring is sourced from the USB VBUS through the PCB — not from an ESP32 GPIO pin. GPIO 9 uses the internal pull-up; the button connects GPIO 9 to GND.</text>
+</svg>
+
