@@ -13,7 +13,9 @@ void updateLedRing();
 void forceStateEvaluation();
 void checkTimeEvents();
 void initLedRing();
+
 void showFactoryResetFeedback();
 void showFirmwareUpdateFeedback();
+void showWifiSuccessFeedback();
 
 #endif

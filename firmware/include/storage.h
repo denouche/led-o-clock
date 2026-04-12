@@ -12,6 +12,9 @@ void saveTimezoneToFS(String tz);
 void loadTimezoneFromFS();
 void cleanupStorage();
 
+// --- Full Reset ---
+void performFactoryReset();
+
 // --- Preferences (NVS) Storage ---
 void initPreferences();
 void saveBrightness(int brightness);

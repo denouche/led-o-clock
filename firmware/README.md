@@ -44,7 +44,7 @@ The ring provides visual feedback for system events:
 | 🟡 Yellow | WiFi Configuration mode — Access Point is active. |
 | 🟢 Green (×5 blinks) | WiFi connection successful. |
 | 🟣 Purple | Firmware OTA update in progress. |
-| 🔴 Red | Factory Reset in progress. |
+| 🔴 Red (×5 blinks) | Factory Reset in progress. |
 
 ## Installation
 
