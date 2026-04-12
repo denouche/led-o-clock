@@ -8,7 +8,8 @@
 #include "ota_service.h"
 
 
-String getLatestFirmwareUrl() {
+FirmwareInfo getLatestFirmwareInfo() {
+    FirmwareInfo info;
     char url[80];
     snprintf(url, sizeof(url), "https://api.github.com/repos/denouche/led-o-clock/releases/latest");
     
@@ -18,11 +19,9 @@ String getLatestFirmwareUrl() {
     secureClient.setInsecure();
     bool success = http.begin(secureClient, url);
 
-    String latestFirmwareUrl = "";
-
     if (!success) {
         Serial.println("getLatestFirmwareVersion error while begin http");
-        return latestFirmwareUrl;
+        return info;
     }
 
     http.addHeader("User-Agent", "Led-O-Clock-V3");
@@ -30,23 +29,22 @@ String getLatestFirmwareUrl() {
     int code = http.GET();
 
     if (code == 200) {
-        String latestVersion = "";
         JsonDocument doc;
         DeserializationError error = deserializeJson(doc, http.getStream());
         if (!error && doc["tag_name"].is<String>()) {
-            latestVersion = doc["tag_name"].as<String>();
-            Serial.printf("Latest firmware version available: %s\n", latestVersion.c_str());
+            info.latestVersion = doc["tag_name"].as<String>();
+            Serial.printf("Latest firmware version available: %s\n", info.latestVersion.c_str());
         }
 
         // Only proceed if versions don't match
         Serial.printf("Current firmware version: %s\n", FIRMWARE_VERSION);
-        if (latestVersion != "" && latestVersion != FIRMWARE_VERSION) {
+        if (info.latestVersion != "" && info.latestVersion != FIRMWARE_VERSION) {
             Serial.println("Should update firmware...");
 
             JsonArray assets = doc["assets"].as<JsonArray>();
             for (JsonObject asset : assets) {
                 if (asset["name"].as<String>() == "firmware.bin") {
-                    latestFirmwareUrl = asset["browser_download_url"].as<String>();
+                    info.downloadUrl = asset["browser_download_url"].as<String>();
                     break;
                 }
             }
@@ -57,7 +55,7 @@ String getLatestFirmwareUrl() {
     }
 
     http.end();
-    return latestFirmwareUrl;
+    return info;
 }
 
 /**
@@ -92,12 +90,12 @@ void updateFirmware(String downloadUrl) {
 }
 
 void updateFirmwareIfNeeded() {
-    String latestUrl = getLatestFirmwareUrl();
-    Serial.printf("Latest firmware URL: %s\n", latestUrl.c_str());
-    if (latestUrl != "") {
+    FirmwareInfo info = getLatestFirmwareInfo();
+    Serial.printf("Latest firmware URL: %s\n", info.downloadUrl.c_str());
+    if (info.downloadUrl != "") {
         showFirmwareUpdateFeedback();
         delay(2000); // Allow user to see the purple light before starting the update
-        updateFirmware(latestUrl);
+        updateFirmware(info.downloadUrl);
     } else {
         Serial.println("Got empty firmware URL. Skipping update.");
     }
