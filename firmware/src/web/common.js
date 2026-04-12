@@ -26,7 +26,7 @@ function generateStatusSentence(data) {
     }
     
     const color = data.current_color;
-    const brightness = data.brightness_percent;
+    const brightness = data.brightness_percent ?? 100;
     const totalLeds = data.num_leds || 12;
     const ledsOn = (data.current_leds_on === -1) ? totalLeds : data.current_leds_on;
     let validSchedules = (data.schedules || []).filter(s => s.time && s.color);
