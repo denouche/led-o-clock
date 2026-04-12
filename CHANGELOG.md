@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/denouche/led-o-clock/compare/0.4.0...0.5.0) (2026-04-12)
+
+
+### Features
+
+* change firmware upgrade endpoint from GET to POST with toast feedback ([#4](https://github.com/denouche/led-o-clock/issues/4)) ([71c531c](https://github.com/denouche/led-o-clock/commit/71c531c76bc877f158fbf49b6a1576a7a53bc879))
+
 # [0.4.0](https://github.com/denouche/led-o-clock/compare/0.3.1...0.4.0) (2026-04-12)
 
 
