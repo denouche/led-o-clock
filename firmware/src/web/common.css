@@ -209,6 +209,12 @@ input[type="time"], select, input[type="text"] {
     margin-bottom: 15px;
 }
 
+.helper-text {
+    margin-top: 0;
+    font-size: 0.85em;
+    color: #666;
+}
+
 .state-label {
     width: 100px;
     font-weight: bold;
