@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/denouche/led-o-clock/compare/0.3.1...0.4.0) (2026-04-12)
+
+
+### Features
+
+* **firmware:** allow to customize brightness for each schedule ([#3](https://github.com/denouche/led-o-clock/issues/3)) ([9e97505](https://github.com/denouche/led-o-clock/commit/9e97505a7ca96110615698fc4b5895fbce906067))
+
 ## [0.3.1](https://github.com/denouche/led-o-clock/compare/0.3.0...0.3.1) (2026-04-12)
 
 
