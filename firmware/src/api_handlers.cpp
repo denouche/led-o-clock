@@ -62,7 +62,9 @@ size_t getCleanSize(const uint8_t* start, const uint8_t* end) {
  */
 void serveStaticEmbed(const uint8_t* start, const uint8_t* end, const char* contentType) {
     size_t size = getCleanSize(start, end);
-    server.sendHeader("Cache-Control", "public, max-age=86400");
+    server.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    server.sendHeader("Pragma", "no-cache");
+    server.sendHeader("Expires", "-1");
     server.send_P(200, contentType, (const char*)start, size);
 }
 
@@ -184,6 +186,7 @@ void handleGetStatus() {
         s["time"] = timeBuf;
         s["color"] = schedules[i].color;
         s["countdown"] = schedules[i].countdown;
+        s["brightness"] = schedules[i].brightness;
         
         JsonArray daysArr = s["days"].to<JsonArray>();
         for (int d = 0; d < 7; d++) {

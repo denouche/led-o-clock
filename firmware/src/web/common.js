@@ -26,6 +26,7 @@ function generateStatusSentence(data) {
     }
     
     const color = data.current_color;
+    const brightness = data.brightness_percent;
     const totalLeds = data.num_leds || 12;
     const ledsOn = (data.current_leds_on === -1) ? totalLeds : data.current_leds_on;
     let validSchedules = (data.schedules || []).filter(s => s.time && s.color);
@@ -89,7 +90,7 @@ function generateStatusSentence(data) {
     
     let total = minElapsed + minRemaining;
     let percent = total > 0 ? Math.round((minElapsed / total) * 100) : 0;
-    let sentence = `It is currently <b>${displayTime}</b>. Led'o'clock is <b>${color}</b> since ${activeSched.time}. `;
+    let sentence = `It is currently <b>${displayTime}</b>. Led'o'clock is <b>${color}</b> at <b>${brightness}%</b> brightness since ${activeSched.time}. `;
     
     if (activeSched.countdown && color !== 'off') {
         sentence += `We are at <b>${percent}%</b> of the time passed up to ${nextSched.time} (when it will become <b>${nextSched.color}</b>). `;
