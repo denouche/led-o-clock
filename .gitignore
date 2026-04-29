@@ -4,12 +4,21 @@ firmware/.vscode/
 *.ipch
 *.db
 
-# --- KiCad / FreeCAD ---
+# --- KiCad ---
+pcb/*.bak
+pcb/*.bck
+pcb/*-bak
+pcb/_autosave-*
+pcb/*.tmp
+pcb/*.lck
+pcb/*.kicad_prl
+pcb/*.kicad_wks
+pcb/fp-info-cache
+pcb/jlcpcb/gerber/
+
+# --- FreeCAD ---
 enclosure/*.FCStd1
 enclosure/*.bak
-pcb/*.bak
-pcb/*.kicad_pcb-bak
-pcb/*.sch-bak
 
 # --- System ---
 .DS_Store

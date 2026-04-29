@@ -9,7 +9,7 @@ This folder contains the ESP32-C3 source code built with **PlatformIO**. It mana
 * **mDNS Support**: Discovers the device on the local network as `ledoclock-<mac>.local` (unique per device).
 * **7-Day Scheduler**: Robust time-keeping logic that handles weekly routines and internet outages.
 * **NTP Sync**: Automatically fetches time at boot and applies the configured POSIX timezone.
-* **OTA Updates**: Firmware can be updated over-the-air via the `GET /firmware_update` endpoint.
+* **OTA Updates**: Firmware can be updated over-the-air.
 * **WiFi Mesh Roaming**: Automatically connects to the strongest access point in a mesh network.
 
 ## REST API Endpoints
@@ -24,7 +24,8 @@ The firmware exposes the following endpoints for automation:
 | `/set_timezone?value=TZ` | `GET` | Updates the device timezone (POSIX string, e.g., `CET-1CEST,M3.5.0,M10.5.0/3`). |
 | `/colors` | `POST` | Updates the hex definitions of custom colors (JSON body). |
 | `/schedule` | `POST` | Updates the full weekly schedule (JSON body). |
-| `/firmware_update` | `GET` | Triggers an OTA firmware update check. |
+| `/firmware_check` | `GET` | Checks GitHub API for updates and returns version info (JSON). |
+| `/firmware_update` | `POST` | Triggers the OTA firmware download and flash process. |
 | `/reset_wifi` | `GET` | Wipes WiFi credentials and restarts in Access Point mode. |
 | `/reset` | `GET` | Wipes all settings (WiFi + saved configuration) and restarts in Access Point mode. |
 | `/ping` | `GET` | Returns `{"status":"pong"}` — useful for connectivity checks. |

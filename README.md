@@ -1,10 +1,12 @@
 # Led'o'clock
 
-[THIS PROJECT IS IN WORK IN PROGRESS STATE]
+> 🚧 WORK IN PROGRESS: This project is currently under active development. Files and documentation may change frequently.
 
 Led'o'clock is a smart, connected, visual nightlight and time indicator designed to help kids understand when it's time to sleep, play, or wake up. 
 
-This monorepo contains everything you need to build your own: the custom PCB, the 3D printable enclosure, and the ESP8266 firmware.
+<img src="docs/images/hero-shot.jpg" alt="Led'o'clock fully assembled" width="250"/>
+
+This monorepo contains everything you need to build your own: the custom PCB, the 3D printable enclosure, and the ESP32 firmware.
 
 ## Features
 
@@ -16,11 +18,23 @@ This monorepo contains everything you need to build your own: the custom PCB, th
 * **OTA Firmware Updates:** Update the firmware over the air without physical access to the device.
 * **Easy Setup:** Built-in captive portal for initial WiFi configuration.
 
+## Web interface 
+
+Here is the web dashboard served by the device:
+
+<img src="docs/images/web-index.png" alt="Web index" width="500"/>
+
+Here is the configuration page, where you can set the colors, time slots, and timezone:
+
+<img src="docs/images/web-configuration-1.png" alt="Web configuration" width="500"/>
+
+<img src="docs/images/web-configuration-2.png" alt="Web configuration" width="500"/>
+
 ## Getting Started
 
 The project is split into three main directories. Check the `README.md` inside each folder for specific instructions:
 
-1. **`/pcb`**: Schematics and Gerber files to manufacture the board (designed around the ESP32-C3).
+1. **`/pcb`**: KiCad schematics files to manufacture the board (designed around the ESP32-C3).
 2. **`/enclosure`**: FreeCAD source file and ready-to-print STL files for the case.
 3. **`/firmware`**: PlatformIO project containing the C++ source code. 
 
