@@ -1,6 +1,6 @@
 {
     "branches": ["main"],
-    "tagFormat":"${version}",
+    "tagFormat":"firmware-${version}",
     "plugins": [
         [
             "@semantic-release/commit-analyzer",

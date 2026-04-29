@@ -1,9 +1,11 @@
-name: release
+name: release firmware
 on:
   workflow_dispatch:
   push:
     branches:
       - 'main'
+    paths:
+      - 'firmware/**'
 
 permissions:
   contents: write
@@ -20,13 +22,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Setup releaserc config
+        run: |
+          cp .releaserc-firmware .releaserc
+
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v6
         with:
-          branches: |
-            [
-              'main'
-            ]
           extra_plugins: |
             @semantic-release/commit-analyzer
             @semantic-release/release-notes-generator

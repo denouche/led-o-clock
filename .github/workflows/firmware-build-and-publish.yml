@@ -10,9 +10,12 @@ jobs:
   build:
     name: Build firmware bin and attach it to the release
     runs-on: ubuntu-latest
+    if: startsWith(github.event.release.tag_name, 'firmware-') || github.event_name == 'workflow_dispatch'
 
     permissions:
       contents: write
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -53,3 +56,29 @@ jobs:
           files: firmware/.pio/build/esp32-c3-wroom-02/firmware.bin
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Generate Firmware Manifest
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          mkdir -p manifest
+          cat <<EOF > manifest/latest_firmware.json
+          {
+            "version": "${{ github.ref_name }}",
+            "url": "https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/firmware.bin"
+          }
+          EOF
+
+      - name: Setup GitHub Pages
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './manifest'
+
+      - name: Deploy to GitHub Pages
+        if: startsWith(github.ref, 'refs/tags/')
+        id: deployment
+        uses: actions/deploy-pages@v4
