@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/denouche/led-o-clock/compare/0.6.0...0.7.0) (2026-04-29)
+
+
+### Features
+
+* add pcb folder and work on readme ([51abcd6](https://github.com/denouche/led-o-clock/commit/51abcd60a1240a7f589b55eeadc327e77937034b))
+
 # [0.6.0](https://github.com/denouche/led-o-clock/compare/0.5.0...0.6.0) (2026-04-12)
 
 
