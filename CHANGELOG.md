@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/denouche/led-o-clock/compare/firmware-1.0.0...firmware-1.1.0) (2026-04-29)
+
+
+### Bug Fixes
+
+* **pcb:** move jst connector on the top ([#6](https://github.com/denouche/led-o-clock/issues/6)) ([a4a3ec3](https://github.com/denouche/led-o-clock/commit/a4a3ec3f5f545fc882d85de9f8cf33023da9cf9b))
+
+
+### Features
+
+* **firmware:** use gh pages manifest for OTA update ([#7](https://github.com/denouche/led-o-clock/issues/7)) ([9efd22f](https://github.com/denouche/led-o-clock/commit/9efd22f0976dd2a50e7f2274a3ea8f6e5961b008))
+
 # 1.0.0 (2026-04-29)
 
 
