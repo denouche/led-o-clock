@@ -10,7 +10,7 @@ C7,47uF,C_1206_3216Metric,139.0,-75.0,90.0,top
 C8,47uF,C_1206_3216Metric,136.5,-75.0,90.0,top
 C9,47uF,C_1206_3216Metric,131.5,-75.025,90.0,top
 J1,USB_C_Receptacle_USB2.0_16P,USB_C_Receptacle_HRO_TYPE-C-31-M-12,123.51,-81.18,270.0,top
-J4,Led ring,JST_PH_S3B-PH-K_1x03_P2.00mm_Horizontal,143.0,-70.5,180.0,top
+J4,Led ring,JST_PH_S3B-PH-K_1x03_P2.00mm_Horizontal,143.0,-69.5,180.0,top
 R1,5.1k,R_0805_2012Metric,126.5,-73.5,180.0,top
 R2,10k,R_0805_2012Metric,161.5,-87.5,-90.0,top
 R3,10k,R_0805_2012Metric,157.5,-75.5,-90.0,top
