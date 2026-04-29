@@ -7,51 +7,52 @@
 #include "led_control.h"
 #include "ota_service.h"
 
+const char* MANIFEST_URL = "https://denouche.github.io/led-o-clock/latest_firmware.json";
 
 FirmwareInfo getLatestFirmwareInfo() {
     FirmwareInfo info;
-    char url[80];
-    snprintf(url, sizeof(url), "https://api.github.com/repos/denouche/led-o-clock/releases/latest");
-    
-    HTTPClient http;
+    info.latestVersion = "";
+    info.downloadUrl = "";
 
     WiFiClientSecure secureClient;
     secureClient.setInsecure();
-    bool success = http.begin(secureClient, url);
 
+    HTTPClient http;
+    http.setTimeout(10000);
+
+    Serial.printf("Checking manifest at: %s\n", MANIFEST_URL);
+    
+    bool success = http.begin(secureClient, MANIFEST_URL);
     if (!success) {
-        Serial.println("getLatestFirmwareVersion error while begin http");
+        Serial.println("OTA: Unable to begin HTTP connection");
         return info;
     }
 
     http.addHeader("User-Agent", "led-o-clock/" + String(FIRMWARE_VERSION));
     
     int code = http.GET();
-
     if (code == 200) {
         JsonDocument doc;
         DeserializationError error = deserializeJson(doc, http.getStream());
-        if (!error && doc["tag_name"].is<String>()) {
-            info.latestVersion = doc["tag_name"].as<String>();
-            Serial.printf("Latest firmware version available: %s\n", info.latestVersion.c_str());
-        }
+        
+        if (!error) {
+            String remoteVersion = doc["version"].as<String>();
+            String downloadUrl = doc["url"].as<String>();
 
-        // Only proceed if versions don't match
-        Serial.printf("Current firmware version: %s\n", FIRMWARE_VERSION);
-        if (info.latestVersion != "" && info.latestVersion != FIRMWARE_VERSION) {
-            Serial.println("Should update firmware...");
+            info.latestVersion = remoteVersion;
+            
+            Serial.printf("Current firmware version: %s\n", FIRMWARE_VERSION);
+            Serial.printf("Latest firmware available: %s\n", remoteVersion.c_str());
 
-            JsonArray assets = doc["assets"].as<JsonArray>();
-            for (JsonObject asset : assets) {
-                if (asset["name"].as<String>() == "firmware.bin") {
-                    info.downloadUrl = asset["browser_download_url"].as<String>();
-                    break;
-                }
+            if (remoteVersion != "" && remoteVersion != String(FIRMWARE_VERSION)) {
+                Serial.println("Update available!");
+                info.downloadUrl = downloadUrl;
             }
+        } else {
+            Serial.printf("OTA: JSON parsing failed: %s\n", error.c_str());
         }
     } else {
-        String response = http.getString();
-        Serial.printf("Firmware check failed with code %d, body: %s\n", code, response.c_str());
+        Serial.printf("OTA: Manifest check failed (HTTP %d)\n", code);
     }
 
     http.end();
@@ -62,6 +63,8 @@ FirmwareInfo getLatestFirmwareInfo() {
  * Perform the actual firmware update from a given URL
  */
 void updateFirmware(String downloadUrl) {
+    if (downloadUrl == "") return;
+    
     WiFiClientSecure client;
     client.setInsecure();
 
