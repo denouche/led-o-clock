@@ -1,4 +1,4 @@
-name: release firmware
+name: Firmware release
 on:
   workflow_dispatch:
   push:

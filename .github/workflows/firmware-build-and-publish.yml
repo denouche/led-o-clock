@@ -1,4 +1,4 @@
-name: Firmware Build release
+name: Firmware publish artifact
 
 on:
   workflow_dispatch:
