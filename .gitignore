@@ -15,6 +15,7 @@ pcb/*.kicad_prl
 pcb/*.kicad_wks
 pcb/fp-info-cache
 pcb/jlcpcb/gerber/
+pcb/led-o-clock-backups/
 
 # --- FreeCAD ---
 enclosure/*.FCStd1
