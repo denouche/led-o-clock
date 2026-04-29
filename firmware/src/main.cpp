@@ -11,7 +11,7 @@
  * - Yellow: WiFi Configuration mode (Access Point active).
  * - Green (Blinks 5 times): WiFi connection successful.
  * - Purple: Firmware update in progress.
- * - Red: Factory Reset in progress.
+ * - Red (Blinks 5 times): Factory Reset in progress.
  */
 
 #include <Adafruit_NeoPixel.h>
