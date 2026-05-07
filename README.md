@@ -12,7 +12,12 @@ This monorepo contains everything you need to build your own: the custom PCB, th
 
 ### LED Color Code
 
-The LED ring provides visual feedback for system events:
+During normal operation, the ring displays the color defined in the active time slot of your schedule.
+
+> Note that if no schedule is set, the ring will remain off. It's the initial state after configuring WiFi.
+
+
+The LED ring also provides visual feedback for system events:
 
 | Color | Meaning |
 | :--- | :--- |
@@ -21,10 +26,6 @@ The LED ring provides visual feedback for system events:
 | 🟢 Green (×5 blinks) | WiFi connection successful. |
 | 🟣 Purple | OTA firmware update in progress. |
 | 🔴 Red (×5 blinks) | Factory Reset in progress. |
-
-> During normal operation, the ring displays the color defined in the active time slot of your schedule.
-
-> Note that if no schedule is set, the ring will remain off. It's the initial state after configuring WiFi.
 
 ### Factory Reset
 
