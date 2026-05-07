@@ -8,6 +8,32 @@ Led'o'clock is a smart, connected, visual nightlight and time indicator designed
 
 This monorepo contains everything you need to build your own: the custom PCB, the 3D printable enclosure, and the ESP32 firmware.
 
+## Usage
+
+### LED Color Code
+
+The LED ring provides visual feedback for system events:
+
+| Color | Meaning |
+| :--- | :--- |
+| 🔵 Light Blue | Device is booting and connecting to WiFi. |
+| 🟡 Yellow | WiFi configuration mode — Access Point active. |
+| 🟢 Green (×5 blinks) | WiFi connection successful. |
+| 🟣 Purple | OTA firmware update in progress. |
+| 🔴 Red (×5 blinks) | Factory Reset in progress. |
+
+> During normal operation, the ring displays the color defined in the active time slot of your schedule.
+
+> Note that if no schedule is set, the ring will remain off. It's the initial state after configuring WiFi.
+
+### Factory Reset
+
+To reset the device to factory settings (wipes WiFi credentials and all configuration):
+
+1. Hold the button on the back of the device for **5 seconds**.
+2. The LED ring will start **blinking red** to confirm the reset is in progress.
+3. The device restarts in Access Point mode, ready to be reconfigured.
+
 ## Features
 
 * **Visual Time Tracking:** Uses a WS2812B LED ring to display specific colors based on the time of day.
