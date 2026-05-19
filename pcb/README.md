@@ -1,4 +1,7 @@
-# Led'o'clock PCB (v3.0)
+# Led'o'clock PCB
+
+> 🚧 WORK IN PROGRESS: The v3.2 PCB design is currently being finalized. Files and documentation may change frequently.
+> This v3.2 version will not require any manual soldering, as all components (including the USB-C module) are now designed for SMD assembly by JLCPCB. The documentation below still applies to the previous v3.0 version which requires some manual soldering.
 
 This folder contains the KiCad design files, manufacturing data, and documentation for the Led'o'clock custom board.
 
