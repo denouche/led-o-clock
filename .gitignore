@@ -20,6 +20,7 @@ pcb/led-o-clock-backups/
 # --- FreeCAD ---
 enclosure/*.FCStd1
 enclosure/*.bak
+enclosure/*.FCbak
 
 # --- System ---
 .DS_Store
