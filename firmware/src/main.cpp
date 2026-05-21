@@ -133,11 +133,6 @@ void setup() {
     // --- Preferences Initialization ---
     initPreferences();
     
-    // 2. Clear LittleFS saved files
-    cleanupStorage();
-    // 3. Clear Preferences (NVS)
-    clearPreferences();
-    
     globalBrightness = loadBrightness();
 
     loadColorsFromFS();

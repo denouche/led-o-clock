@@ -22,15 +22,12 @@ function markBrightnessDirty() {
 }
 
 function syncBrightnessFromRange() {
-    console.log("Brightness range changed: " + document.getElementById('brightness').value);
     document.getElementById('brightness-value').value = document.getElementById('brightness').value;
     markBrightnessDirty();
 }
 
 function syncBrightnessFromNumber() {
-    console.log("Brightness number changed");
     let val = parseInt(document.getElementById('brightness-value').value, 10);
-    console.log("Parsed brightness value:", val);
     if (isNaN(val)) val = 0;
     val = Math.min(100, Math.max(0, val));
     document.getElementById('brightness').value = val;
