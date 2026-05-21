@@ -45,7 +45,7 @@ int definedColorCount = 0;
 int globalBrightness = 128;
 String currentColorMode = "off";
 String currentTimezone = "CET-1CEST,M3.5.0,M10.5.0/3"; // Default timezone
-int currentLedsOn = -1; // Track how many LEDs are currently lit to avoid redundant updates
+int currentLedsOn = NUM_LEDS; // Track how many LEDs are currently lit to avoid redundant updates
 
 /**
  * Configure WiFi Roaming for Mesh stability (ESP32 Specific)
@@ -132,6 +132,11 @@ void setup() {
 
     // --- Preferences Initialization ---
     initPreferences();
+    
+    // 2. Clear LittleFS saved files
+    cleanupStorage();
+    // 3. Clear Preferences (NVS)
+    clearPreferences();
     
     globalBrightness = loadBrightness();
 

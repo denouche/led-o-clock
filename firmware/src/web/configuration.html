@@ -31,10 +31,16 @@
                 </select>
             </div>
             
-            <div class="state-row" style="margin-bottom: 0;">
+            <div class="state-row">
                 <div class="state-label">Brightness:</div>
-                <input type="range" id="brightness" min="0" max="100" style="flex-grow: 1;" oninput="markBrightnessDirty()"> 
-                <span style="width: 45px; text-align: right;"><span id="brightness-value">50</span>%</span>
+                <input type="range" id="brightness" min="0" max="100" class="state-range" oninput="syncBrightnessFromRange()"> 
+                <span class="state-range-value"><input type="number" id="brightness-value" min="0" max="100" value="50" style="width: 42px; text-align: right;" oninput="syncBrightnessFromNumber()">%</span>
+            </div>
+
+            <div class="state-row" style="margin-bottom: 0;">
+                <div class="state-label">LEDs on:</div>
+                <input type="range" id="leds-on" min="0" max="12" class="state-range" oninput="markLedsOnDirty()"> 
+                <span class="state-range-value"><span id="leds-on-value">12</span></span>
             </div>
         </div>
 

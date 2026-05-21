@@ -6,6 +6,7 @@
 
 void setRingRgb(uint8_t r, uint8_t g, uint8_t b);
 void setBrightness(int percent);
+void setLedsOn(int count);
 
 void renderSolidColor(String color);
 void applyColor(String color);

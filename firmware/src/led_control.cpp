@@ -49,6 +49,24 @@ static uint32_t getRgbFromName(String colorName) {
     return ring.Color(0, 0, 0);
 }
 
+void setLedsOn(int count) {
+    if (count < 0) count = 0;
+    if (count > NUM_LEDS) count = NUM_LEDS;
+
+    currentLedsOn = count;
+    uint32_t activeColor = getRgbFromName(currentColorMode);
+
+    ring.setBrightness(globalBrightness);
+    for (int i = 0; i < NUM_LEDS; i++) {
+        if (i < count) {
+            ring.setPixelColor(i, activeColor);
+        } else {
+            ring.setPixelColor(i, ring.Color(0, 0, 0));
+        }
+    }
+    ring.show();
+}
+
 /**
  * Renders a full solid color on the ring based on a name.
  */
@@ -65,11 +83,12 @@ void applyColor(String color) {
     
     currentColorMode = color;
     
-    // Reset the LED count tracker when switching modes
-    currentLedsOn = NUM_LEDS; 
-    
-    // Draw the full color initially
-    renderSolidColor(color);
+    // Render with the current LED count
+    if (currentLedsOn >= NUM_LEDS) {
+        renderSolidColor(color);
+    } else {
+        setLedsOn(currentLedsOn);
+    }
 
     // Persist color mode in Preferences
     int colorCode = 255;
