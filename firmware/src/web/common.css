@@ -220,6 +220,18 @@ input[type="time"], select, input[type="text"] {
     color: #555;
 }
 
+.state-range {
+    flex-grow: 1;
+}
+
+.state-range-value {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 60px;
+    margin-left: 5px;
+}
+
 #loader {
     text-align: center;
     padding: 40px;

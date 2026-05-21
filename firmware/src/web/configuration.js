@@ -1,6 +1,7 @@
 const MAX_SCHEDULES = 12;
 let isColorModified = false;
 let isBrightnessDirty = false;
+let isLedsOnDirty = false;
 let isColorsDirty = false;
 let isTimezoneDirty = false;
 let isSchedulesDirty = false;
@@ -17,6 +18,25 @@ function markColorModified() {
 
 function markBrightnessDirty() {
     isBrightnessDirty = true;
+    showSaveButton();
+}
+
+function syncBrightnessFromRange() {
+    document.getElementById('brightness-value').value = document.getElementById('brightness').value;
+    markBrightnessDirty();
+}
+
+function syncBrightnessFromNumber() {
+    let val = parseInt(document.getElementById('brightness-value').value, 10);
+    if (isNaN(val)) val = 0;
+    val = Math.min(100, Math.max(0, val));
+    document.getElementById('brightness').value = val;
+    markBrightnessDirty();
+}
+
+function markLedsOnDirty() {
+    isLedsOnDirty = true;
+    document.getElementById('leds-on-value').textContent = document.getElementById('leds-on').value;
     showSaveButton();
 }
 
@@ -229,7 +249,11 @@ async function loadConfig() {
 
         document.getElementById('current-color').value = d.current_color;
         document.getElementById('brightness').value = d.brightness_percent;
-        document.getElementById('brightness-value').textContent = d.brightness_percent;
+        document.getElementById('brightness-value').value = d.brightness_percent;
+
+        document.getElementById('leds-on').max = d.num_leds;
+        document.getElementById('leds-on').value = d.current_leds_on;
+        document.getElementById('leds-on-value').textContent = d.current_leds_on;
         
         if (d.timezone) {
             document.getElementById('timezone').value = d.timezone;
@@ -243,6 +267,7 @@ async function loadConfig() {
         
         isColorModified = false; 
         isBrightnessDirty = false;
+        isLedsOnDirty = false;
         isColorsDirty = false;
         isTimezoneDirty = false;
         isSchedulesDirty = false;
@@ -309,6 +334,11 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
             await fetch(`/set_brightness?value=${bright}`);
         }
 
+        if (isLedsOnDirty) {
+            const ledsOn = document.getElementById('leds-on').value;
+            await fetch(`/set_leds_on?value=${ledsOn}`);
+        }
+
         btn.disabled = false;
         btn.textContent = "SAVE CHANGES";
         btn.style.display = 'none'; 
@@ -326,11 +356,6 @@ document.getElementById('scheduleForm').onsubmit = async (e) => {
         btn.textContent = "SAVE CHANGES";
         showMessage('Failed to save configuration. Please try again.', 'error');
     }
-};
-
-document.getElementById('brightness').oninput = (e) => {
-    document.getElementById('brightness-value').textContent = e.target.value;
-    markBrightnessDirty();
 };
 
 loadConfig();

@@ -249,6 +249,36 @@ void handleSetBrightness() {
     }
 }
 
+void handleSetLedsOn() {
+    Serial.println("handleSetLedsOn");
+    if (!server.hasArg("value")) {
+        server.send(400, "application/json", "{\"error\":\"Missing value parameter\"}");
+        return;
+    }
+
+    String raw = server.arg("value");
+    // Validate that the string is a valid non-negative integer (digits only)
+    if (raw.length() == 0) {
+        server.send(400, "application/json", "{\"error\":\"Invalid value parameter\"}");
+        return;
+    }
+    for (int i = 0; i < (int)raw.length(); i++) {
+        if (!isDigit(raw[i])) {
+            server.send(400, "application/json", "{\"error\":\"Invalid value parameter\"}");
+            return;
+        }
+    }
+
+    int count = raw.toInt();
+    if (count < 0 || count > NUM_LEDS) {
+        server.send(400, "application/json", "{\"error\":\"Value must be between 0 and " + String(NUM_LEDS) + "\"}");
+        return;
+    }
+
+    setLedsOn(count);
+    server.send(200, "application/json", "{\"status\":\"saved\"}");
+}
+
 void handlePostSchedule() {
     Serial.println("handlePostSchedule");
     
@@ -348,6 +378,7 @@ void initEndpoints() {
     server.on("/schedule",        HTTP_POST, handlePostSchedule);
     server.on("/set_brightness",  HTTP_GET,  handleSetBrightness);
     server.on("/set_color",       HTTP_GET,  handleSetColor);
+    server.on("/set_leds_on",     HTTP_GET,  handleSetLedsOn);
     server.on("/set_timezone",    HTTP_GET,  handleSetTimezone);
     server.on("/status",          HTTP_GET,  handleGetStatus);
     server.on("/firmware_update", HTTP_POST, handlePostFirmwareUpdate);
