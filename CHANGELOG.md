@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/denouche/led-o-clock/compare/firmware-1.1.0...firmware-1.2.0) (2026-05-21)
+
+
+### Bug Fixes
+
+* **pcb:** improve button placement and add QR code ([9fd4abb](https://github.com/denouche/led-o-clock/commit/9fd4abb37743e466d26927f49193d1b6cf61663b))
+
+
+### Features
+
+* **enclosure:** work on v3.1 enclosure ([44e2d0d](https://github.com/denouche/led-o-clock/commit/44e2d0d0b37f5188ccae702cb5005594614ab368))
+* **firmware:** add GET /set_leds_on endpoint ([#8](https://github.com/denouche/led-o-clock/issues/8)) ([9e0ffce](https://github.com/denouche/led-o-clock/commit/9e0ffcedce582659c4645045b0127e3a8afb4af7))
+* **pcb:** work on v3.2 ([9e711f4](https://github.com/denouche/led-o-clock/commit/9e711f4f5bbf9757de8afd5cb196e56171b1693e))
+
 # [1.1.0](https://github.com/denouche/led-o-clock/compare/firmware-1.0.0...firmware-1.1.0) (2026-04-29)
 
 
