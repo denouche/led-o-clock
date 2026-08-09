@@ -149,6 +149,15 @@ void setup() {
         while (WiFi.status() != WL_CONNECTED) {
             wm.process();
             checkFactoryResetButton();
+
+            // If the config portal is no longer active (e.g. it timed out)
+            // without a successful connection, restart to retry, matching the
+            // previous blocking behaviour.
+            if (!wm.getConfigPortalActive() && WiFi.status() != WL_CONNECTED) {
+                Serial.println("Config portal closed without connection. Restarting...");
+                ESP.restart();
+            }
+
             delay(10);
         }
     }
