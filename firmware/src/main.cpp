@@ -64,6 +64,26 @@ void configureWiFiRoaming() {
     esp_wifi_set_config(WIFI_IF_STA, &conf);
 }
 
+/**
+ * Check the physical button for a long press (>5s) and trigger a factory reset.
+ * Extracted so it can be polled both during normal runtime (loop) and while the
+ * device is in WiFi Access Point / config portal mode.
+ */
+void checkFactoryResetButton() {
+    static unsigned long buttonPressStartTime = 0;
+
+    if (digitalRead(PIN_BUTTON) == LOW) {
+        if (buttonPressStartTime == 0) {
+            buttonPressStartTime = millis();
+        } else if (millis() - buttonPressStartTime > 5000) {
+            showFactoryResetFeedback();
+            performFactoryReset();
+        }
+    } else {
+        buttonPressStartTime = 0;
+    }
+}
+
 void setup() {
     Serial.begin(115200);
     delay(500); // Allow time for Native USB Serial to initialize
@@ -119,9 +139,18 @@ void setup() {
     wm.setCustomHeadElement(customHead.c_str());
 
     String apName = "Led'o'clock AP " + chipId;
+    // Run the config portal in non-blocking mode so the main firmware keeps
+    // executing while the Access Point is active. This allows the long-press
+    // factory reset button to be polled while the device is in AP mode.
+    wm.setConfigPortalBlocking(false);
     if (!wm.autoConnect(apName.c_str())) {
-        Serial.println("Failed to connect and hit timeout");
-        ESP.restart();
+        // Not connected yet: the config portal (AP mode) is running.
+        // Keep servicing the portal and watch for a long button press.
+        while (WiFi.status() != WL_CONNECTED) {
+            wm.process();
+            checkFactoryResetButton();
+            delay(10);
+        }
     }
 
     configureWiFiRoaming();
@@ -164,19 +193,8 @@ void setup() {
 void loop() {
     handleWebClient();
 
-    // Check WiFi Reset Button
-    static unsigned long buttonPressStartTime = 0;
-
-    if (digitalRead(PIN_BUTTON) == LOW) {
-        if (buttonPressStartTime == 0) {
-            buttonPressStartTime = millis();
-        } else if (millis() - buttonPressStartTime > 5000) {
-            showFactoryResetFeedback();
-            performFactoryReset();
-        }
-    } else {
-        buttonPressStartTime = 0;
-    }
+    // Check WiFi Reset Button (long press)
+    checkFactoryResetButton();
 
     // Flag to track if we have applied the correct schedule after a reboot
     static bool initialTimeSyncDone = false;
